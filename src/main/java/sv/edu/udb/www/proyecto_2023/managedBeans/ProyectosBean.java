@@ -3,6 +3,8 @@ package sv.edu.udb.www.proyecto_2023.managedBeans;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
+import sv.edu.udb.www.proyecto_2023.entities.TipoProyectoEntity;
+import sv.edu.udb.www.proyecto_2023.model.TipoProyectoModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
 import sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity;
 import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
@@ -16,6 +18,7 @@ import java.util.List;
 public class ProyectosBean {
 
     ProyectosModel modelo = new ProyectosModel();
+    TipoProyectoModel modeloTipo = new TipoProyectoModel();
 
     private ProyectosEntity proyecto;
     private List<ProyectosEntity> listaProyectos;
@@ -40,6 +43,8 @@ public class ProyectosBean {
 
     public String saveProyecto(){
         if(modelo.obtenerProyectos(proyecto.getIdProyecto()) != null){ // Modificar
+            TipoProyectoEntity tipo = modeloTipo.obtenerTipoProyecto(proyecto.getIdTipoProyecto());
+            proyecto.setTipoProyectoByIdTipoProyecto(tipo);
             if (modelo.modificarProyecto(proyecto) !=1){
                 JsfUtil.setErrorMessage(null,"Error al modificar el Proyecto");
                 return null;
@@ -48,6 +53,8 @@ public class ProyectosBean {
                 return "registroProyectos?faces-redirect=true";
             }
         } else {
+            TipoProyectoEntity tipo = modeloTipo.obtenerTipoProyecto(proyecto.getIdTipoProyecto());
+            proyecto.setTipoProyectoByIdTipoProyecto(tipo);
             if (modelo.insertarProyecto(proyecto) !=1){
                 JsfUtil.setErrorMessage(null,"ya se registro este Proyecto");
                 return null;
