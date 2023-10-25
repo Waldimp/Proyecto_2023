@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Registro de Proyectos</title>
+<!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
+    <h:outputStylesheet   name="css/bootstrap5.min.css" />
+    <h:outputStylesheet  name="css/alertify.core.css" />
+    <h:outputStylesheet  name="css/alertify.default.css" />
+    <h:outputScript  name="js/alertify.js"/>
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+</h:head>
+<h:body>
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+    <ui:include src="nav.xhtml" />
+    <div class="container">
+        <div class="card mt-3 mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Registro Proyectos </h2>
+
+
+                        <h:form id="formProyectos">
+                            <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                          rendered="#{not empty facesContext.messageList}">
+                                <h:messages />
+                            </h:panelGroup>
+                            <h:panelGrid columns="4" styleClass="table">
+                                <h:outputLabel for="idProyecto" value="ID Proyecto:"/>
+                                <h:inputText id="idProyecto" styleClass="form-control"
+                                             value="#{proyectosBean.proyecto.idProyecto}"
+                                             required="true"
+                                             requiredMessage="Ingresa ID del Proyecto"
+                                >
+                                </h:inputText>
+                                <h:outputLabel for="nombreProyecto" value="Nombre del Proyecto:"/>
+                                <h:inputText id="nombreProyecto" styleClass="form-control"
+                                             value="#{proyectosBean.proyecto.nombreProyecto}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar nombre del Proyecto"/>
+
+                                <h:outputLabel for="descripcion" value="Descripcion:"/>
+                                <h:inputText id="descripcion" styleClass="form-control"
+                                             value="#{proyectosBean.proyecto.descripcion}"
+                                             required="false"
+                                             requiredMessage="Debes ingresar Descripcion"/>
+
+
+                                <h:outputLabel for="fechaInicio" value="fecha Inicio:"/>
+                                <h:inputText id="fechaInicio" styleClass="form-control"
+                                             value="#{proyectosBean.proyecto.fechaInicio}"
+                                             required="false"
+                                             requiredMessage="Debes fecha Inicio del proyecto">
+                                    <f:convertDateTime pattern="yyyy/MM/dd"/>
+                                </h:inputText>
+
+                                <h:outputLabel for="fechaFin" value="fecha Final:"/>
+                                <h:inputText id="fechaFin" styleClass="form-control"
+                                             value="#{proyectosBean.proyecto.fechaFin}"
+                                             required="false"
+                                             requiredMessage="Debes registrar fecha fin del proyecto">
+                                    <f:convertDateTime pattern="yyyy/MM/dd"/>
+                                </h:inputText>
+
+                                <h:outputLabel for="observaciones" value="Observaciones:"/>
+                                <h:inputText id="observaciones" styleClass="form-control"
+                                             value="#{proyectosBean.proyecto.observaciones}"
+                                             required="false"
+                                             requiredMessage="Debes ingresar Observaciones"/>
+
+                                <h:outputLabel for="idTipoProyecto" value="Tipo de Proyecto:"/>
+
+                                <h:selectOneMenu id="idTipoProyecto" styleClass="form-control"
+                                                 required="true" requiredMessage="Debes asignar un tipo de Proyecto"
+                                                 value="#{proyectosBean.proyecto.idTipoProyecto}">
+                                    <f:selectItems  value="#{tipoProyectoBean.listaTipoProyectos}" rendered="#{tipoProyectoBean.listaTipoProyectos.size()>0}"
+                                                    var="option" itemValue="#{option.idTipoProyecto}"  itemLabel="#{option.nombreTipo}" />
+
+                                </h:selectOneMenu>
+
+                            </h:panelGrid>
+                            <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                             action="#{proyectosBean.saveProyecto()}" style="margin-right:10px"/>
+                            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr></hr>
+        <div class="row mt-3">
+            <h:form >
+                <h:dataTable styleClass="table" value="#{proyectosBean.listaProyectos}"
+                             var="est" rendered="#{proyectosBean.listaProyectos.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="idProyecto"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idProyecto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{est.nombreProyecto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Descripcion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.descripcion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="fecha Inicio"/>
+                        </f:facet>
+                        <h:outputText value="#{est.fechaInicio}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="fecha Fin"/>
+                        </f:facet>
+                        <h:outputText value="#{est.fechaFin}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Observaciones"/>
+                        </f:facet>
+                        <h:outputText value="#{est.observaciones}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Tipo de Proyecto"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idTipoProyecto}"/>-
+                        <h:outputText value="#{est.tipoProyectoByIdTipoProyecto.nombreTipo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operaciones"/>
+                        </f:facet>
+                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                         action="#{proyectosBean.eliminarProyecto()}"
+                                         onclick="return confirmarEliminacion();">
+                            <f:param name="idProyecto" value="#{est.idProyecto}"/>
+                        </h:commandButton>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Acciones"/>
+                        </f:facet>
+                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
+                                         action="#{proyectosBean.cargarProyecto(est.idProyecto)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </div>
+    <h:outputScript>
+        <c:if test = "#{not empty flash.exito}" >
+            alertify.success('#{flash.exito}');
+        </c:if>
+        function confirmarEliminacion(){
+        return confirm("Está seguro que desea eliminar este Registro");
+        }
+
+    </h:outputScript>
+</h:body>
+</html>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Registro Reunión Proyectos</title>
+    <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
+    <h:outputStylesheet   name="css/bootstrap5.min.css" />
+    <h:outputStylesheet  name="css/alertify.core.css" />
+    <h:outputStylesheet  name="css/alertify.default.css" />
+    <h:outputScript  name="js/alertify.js"/>
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+</h:head>
+<h:body>
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+    <ui:include src="nav.xhtml" />
+    <div class="container">
+        <div class="card mt-3 mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Registro de Reuniones</h2>
+                        <h:form id="miFormulario">
+                            <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                          rendered="#{not empty facesContext.messageList}">
+                                <h:messages />
+                            </h:panelGroup>
+                            <h:panelGrid columns="4" styleClass="table">
+                                <h:outputLabel for="idReunion" value="id Reunion Proyecto:"/>
+                                <h:inputText id="idReunion" styleClass="form-control"
+                                             value="#{reunionProyectoBean.reunionProyecto.idReunion}"
+                                             required="true"
+                                             requiredMessage="Ingresa ID del Reunion"
+                                >
+                                </h:inputText>
+                                <h:outputLabel for="nombreReunion" value="Nombre de la reunion:"/>
+                                <h:inputText id="nombreReunion" styleClass="form-control"
+                                             value="#{reunionProyectoBean.reunionProyecto.nombreReunion}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar Nombre de la reunion"/>
+
+                                <h:outputLabel for="fechaEvento" value="fecha Inicio Evento:"/>
+                                <h:inputText id="fechaEvento" styleClass="form-control"
+                                             value="#{reunionProyectoBean.reunionProyecto.fechaEvento}"
+                                             required="false">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                                <h:outputLabel for="descripcionEvento" value="descripcion del Evento:"/>
+                                <h:inputText id="descripcionEvento" styleClass="form-control"
+                                             value="#{reunionProyectoBean.reunionProyecto.descripcionEvento}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar descripcion del Evento"/>
+
+                                <h:outputLabel for="idUsuario" value="Usuario:"/>
+                                <h:selectOneMenu id="idUsuario" styleClass="form-control"
+                                                 required="true" requiredMessage="Debes asignar un Usuario"
+                                                 value="#{reunionProyectoBean.reunionProyecto.idUsuario}">
+                                    <f:selectItems  value="#{usuariosBean.listaUsuarios}" rendered="#{usuariosBean.listaUsuarios.size()>0}"
+                                                    var="option" itemValue="#{option.idUsuario}"  itemLabel="#{option.nombre.concat(' ').concat(option.apellido)}" />
+                                </h:selectOneMenu>
+
+                                <h:outputLabel for="idProyecto" value="ID PROYECTO:"/>
+                                <h:selectOneMenu id="idProyecto" styleClass="form-control"
+                                                 required="true" requiredMessage="Debes asignar un Proyecto"
+                                                 value="#{reunionProyectoBean.reunionProyecto.idProyecto}">
+                                    <f:selectItems  value="#{proyectosBean.listaProyectos}" rendered="#{proyectosBean.listaProyectos.size()>0}"
+                                                    var="option" itemValue="#{option.idProyecto}"  itemLabel="#{option.nombreProyecto}" />
+                                </h:selectOneMenu>
+                            </h:panelGrid>
+                            <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                             action="#{reunionProyectoBean.saveReunionProyecto()}" style="margin-right:10px"/>
+                            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr></hr>
+        <div class="row mt-3">
+            <h:form >
+                <h:dataTable styleClass="table" value="#{reunionProyectoBean.listaReuniones}"
+                             var="est" rendered="#{reunionProyectoBean.listaReuniones.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="idReunion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idReunion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre Reunion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.nombreReunion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="fecha Evento"/>
+                        </f:facet>
+                        <h:outputText value="#{est.fechaEvento}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Descripcion Evento"/>
+                        </f:facet>
+                        <h:outputText value="#{est.descripcionEvento}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="ID PROYECTO"/>
+                        </f:facet>
+                        <h:outputText value="#{est.proyectosByIdProyecto.nombreProyecto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Usuario Asignado"/>
+                        </f:facet>
+                        <h:outputText value="#{est.usuariosByIdUsuario.nombre}"/>&#xA0;<h:outputText value="#{est.usuariosByIdUsuario.apellido}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operaciones"/>
+                        </f:facet>
+                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                         action="#{reunionProyectoBean.eliminarReunionProyecto()}"
+                                         onclick="return confirmarEliminacion();">
+                            <f:param name="idReunionProyecto" value="#{est.idReunion}"/>
+                        </h:commandButton>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Acciones"/>
+                        </f:facet>
+                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
+                                         action="#{reunionProyectoBean.cargarReunionProyecto(est.idReunion)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </div>
+    <h:outputScript>
+        <c:if test = "#{not empty flash.exito}" >
+            alertify.success('#{flash.exito}');
+        </c:if>
+        function confirmarEliminacion(){
+        return confirm("¿Está seguro que desea eliminar este Registro");
+        }
+
+    </h:outputScript>
+</h:body>
+</html>

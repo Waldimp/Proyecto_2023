@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Registro de Proyectos</title>
+    <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
+    <h:outputStylesheet   name="css/bootstrap5.min.css" />
+    <h:outputStylesheet  name="css/alertify.core.css" />
+    <h:outputStylesheet  name="css/alertify.default.css" />
+    <h:outputScript  name="js/alertify.js"/>
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+</h:head>
+<h:body>
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+    <ui:include src="nav.xhtml" />
+    <div class="container">
+        <div class="card mt-3 mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Registro Usuarios</h2>
+                        <h:form id="formUsuarios">
+                            <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                          rendered="#{not empty facesContext.messageList}">
+                                <h:messages />
+                            </h:panelGroup>
+                            <h:panelGrid columns="4" styleClass="table">
+                                <h:outputLabel for="idUsuario" value="ID USUARIO:"/>
+                                <h:inputText id="idUsuario" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.idUsuario}"
+                                             required="true"
+                                             requiredMessage="Ingresa ID del Usuario"
+                                >
+                                </h:inputText>
+                                <h:outputLabel for="nombre" value="Nombre del Usuario:"/>
+                                <h:inputText id="nombre" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.nombre}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar nombre del usuario"/>
+
+                                <h:outputLabel for="apellido" value="Apellido del Usuario:"/>
+                                <h:inputText id="apellido" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.apellido}"
+                                             required="false"
+                                             requiredMessage="Debes ingresar apellido de Usuario"/>
+
+                                <h:outputLabel for="edad" value="Edad:"/>
+                                <h:inputText id="edad" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.edad}"
+                                             required="false"
+                                             requiredMessage="Debes ingresar Edad del Usuario"/>
+
+                                <h:outputLabel for="direccion" value="Direccion:"/>
+                                <h:inputText id="direccion" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.direccion}"
+                                             required="false"
+                                             requiredMessage="Debes ingresar Direccion del Usuario"/>
+
+                                <h:outputLabel for="telefono" value="Telefono:"/>
+                                <h:inputText id="telefono" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.telefono}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar Telefono del Usuario"/>
+
+                                <h:outputLabel for="dui" value="DUI:"/>
+                                <h:inputText id="dui" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.dui}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar DUI del Usuario">
+                                <f:validateRegex pattern="[0-9]{8}-[0-9]{1}">
+                                </f:validateRegex>
+                                </h:inputText>
+
+                                <h:outputLabel for="correo" value="Correo Electronico:"/>
+                                <h:inputText id="correo" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.correo}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar Correo del Usuario">
+                                    <f:validateRegex pattern="^[\w\.-]+@[\w\.-]+\.\w+$" />
+                                </h:inputText>
+
+                                <h:outputLabel for="password" value="Contraseña:"/>
+                                <h:inputSecret id="password" styleClass="form-control"
+                                             value="#{usuariosBean.usuario.password}"
+                                             required="true"
+                                             requiredMessage="Debes ingresar Contraseña"/>
+
+                                <h:outputLabel for="idRol" value="Rol Usuario:"/>
+                                <h:selectOneMenu id="idRol" styleClass="form-control"
+                                                 required="true" requiredMessage="Debes asignar un Rol a este Usuario"
+                                                 value="#{usuariosBean.usuario.idRol}">
+                                    <f:selectItems  value="#{rolUsuariosBean.listaRoles}" rendered="#{rolUsuariosBean.listaRoles.size()>0}"
+                                                    var="option" itemValue="#{option.idRol}"  itemLabel="#{option.rolUsuario}" />
+                                </h:selectOneMenu>
+
+                            </h:panelGrid>
+                            <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                             action="#{usuariosBean.saveUsuario()}" style="margin-right:10px"/>
+                            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr></hr>
+        <div class="row  mt-3">
+            <h:form >
+                <h:dataTable styleClass="table" value="#{usuariosBean.listaUsuarios}"
+                             var="est" rendered="#{usuariosBean.listaUsuarios.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="idUsuario"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idUsuario}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{est.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Apellido"/>
+                        </f:facet>
+                        <h:outputText value="#{est.apellido}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="edad"/>
+                        </f:facet>
+                        <h:outputText value="#{est.edad}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="direccion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.direccion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Telefono"/>
+                        </f:facet>
+                        <h:outputText value="#{est.telefono}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="DUI"/>
+                        </f:facet>
+                        <h:outputText value="#{est.dui}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Correo"/>
+                        </f:facet>
+                        <h:outputText value="#{est.correo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="id Rol"/>
+                        </f:facet>
+                        <h:outputText value="#{est.rolUsuarioByIdRol.rolUsuario}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operaciones"/>
+                        </f:facet>
+                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                         action="#{usuariosBean.eliminarUsuario()}"
+                                         onclick="return confirmarEliminacion();">
+                            <f:param name="idUsuario" value="#{est.idUsuario}"/>
+                        </h:commandButton>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Acciones"/>
+                        </f:facet>
+                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
+                                         action="#{usuariosBean.cargarUsuario(est.idUsuario)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </div>
+    <h:outputScript>
+        <c:if test = "#{not empty flash.exito}" >
+            alertify.success('#{flash.exito}');
+        </c:if>
+        function confirmarEliminacion(){
+        return confirm("¿Está seguro que desea eliminar este Usuario");
+        }
+
+    </h:outputScript>
+</h:body>
+</html>

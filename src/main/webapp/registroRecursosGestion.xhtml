@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Registro de Proyectos</title>
+    <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
+    <h:outputStylesheet   name="css/bootstrap5.min.css" />
+    <h:outputStylesheet  name="css/alertify.core.css" />
+    <h:outputStylesheet  name="css/alertify.default.css" />
+    <h:outputScript  name="js/alertify.js"/>
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+</h:head>
+<h:body>
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+    <ui:include src="nav.xhtml" />
+    <div class="container">
+        <div class="card mt-3 mb-2">
+            <div class="card-body">
+                <div class="row">
+                <div class="col-md-12">
+                    <h2>Registro de Recursos</h2>
+                    <h:form id="miFormulario">
+                        <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                      rendered="#{not empty facesContext.messageList}">
+                            <h:messages />
+                        </h:panelGroup>
+                        <h:panelGrid columns="2" styleClass="table">
+                            <h:outputLabel for="idRecurso" value="id Recurso Gestio:"/>
+                            <h:inputText id="idRecurso" styleClass="form-control"
+                                         value="#{recursoGestionesBean.recursos.idRecurso}"
+                                         required="true"
+                                         requiredMessage="Ingresa ID del RECURSO"
+                            >
+                            </h:inputText>
+                            <h:outputLabel for="nombreRecurso" value="Nombre del recurso:"/>
+                            <h:inputText id="nombreRecurso" styleClass="form-control"
+                                         value="#{recursoGestionesBean.recursos.nombreRecurso}"
+                                         required="true"
+                                         requiredMessage="Debes ingresar Nombre del recurso"/>
+
+                            <h:outputLabel for="descripcion" value="Descripcion del tipo de proyecto:"/>
+                            <h:inputText id="descripcion" styleClass="form-control"
+                                         value="#{recursoGestionesBean.recursos.descripcion}"
+                                         required="false"
+                                         requiredMessage="Debes ingresar descripcion"/>
+
+                        </h:panelGrid>
+                        <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                         action="#{recursoGestionesBean.saveRecursoGestion()}" style="margin-right:10px"/>
+                        <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                    </h:form>
+                </div>
+            </div>
+            </div>
+        </div>
+        <hr></hr>
+        <div class="row mt-3">
+            <h:form >
+                <h:dataTable styleClass="table" value="#{recursoGestionesBean.listaRecursos}"
+                             var="est" rendered="#{recursoGestionesBean.listaRecursos.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="idRecurso"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idRecurso}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre Recurso"/>
+                        </f:facet>
+                        <h:outputText value="#{est.nombreRecurso}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Descripcion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.descripcion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operaciones"/>
+                        </f:facet>
+                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                         action="#{recursoGestionesBean.eliminarRecursos()}"
+                                         onclick="return confirmarEliminacion();">
+                            <f:param name="idRecursoGestion" value="#{est.idRecurso}"/>
+                        </h:commandButton>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Acciones"/>
+                        </f:facet>
+                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
+                                         action="#{recursoGestionesBean.cargarProyecto(est.idRecurso)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </div>
+    <h:outputScript>
+        <c:if test = "#{not empty flash.exito}" >
+            alertify.success('#{flash.exito}');
+        </c:if>
+        function confirmarEliminacion(){
+        return confirm("Está seguro que desea eliminar este Registro");
+        }
+
+    </h:outputScript>
+</h:body>
+</html>

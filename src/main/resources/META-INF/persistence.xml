@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="Proyecto2023">
+
+        <class>sv.edu.udb.www.proyecto_2023.entities.BitacoraProyectoEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.GestionProyectoEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.RecursoGestionesEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.ReunionProyectoEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.RolUsuarioEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.TareaAsignadasEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.TareasProyectosEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.TipoProyectoEntity</class>
+        <class>sv.edu.udb.www.proyecto_2023.entities.UsuariosEntity</class>
+        <properties>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/proyectos_2023"/>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="eclipselink.jdbc.user" value="root"/>
+            <property name="eclipselink.jdbc.password" value=""/>
+        </properties>
+    </persistence-unit>
+</persistence>
