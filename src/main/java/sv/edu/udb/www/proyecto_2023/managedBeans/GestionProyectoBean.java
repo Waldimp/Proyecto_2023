@@ -2,6 +2,10 @@ package sv.edu.udb.www.proyecto_2023.managedBeans;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import sv.edu.udb.www.proyecto_2023.entities.BitacoraProyectoEntity;
+import sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity;
+import sv.edu.udb.www.proyecto_2023.entities.RecursoGestionesEntity;
+import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
+import sv.edu.udb.www.proyecto_2023.model.RecursosGestionesModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
 import java.util.List;
 import sv.edu.udb.www.proyecto_2023.entities.GestionProyectoEntity;
@@ -13,6 +17,8 @@ public class GestionProyectoBean {
 
     GestionProyectoModel modelo = new GestionProyectoModel();
 
+    ProyectosModel proyectosModel = new ProyectosModel();
+    RecursosGestionesModel recursosGestionesModel = new RecursosGestionesModel();
     private GestionProyectoEntity gestiones;
 
     private List<GestionProyectoEntity> listaGestiones;
@@ -38,6 +44,12 @@ public class GestionProyectoBean {
 
     public String saveGestion (){
         if(modelo.obtenerGestion(gestiones.getIdGestion()) != null){
+            ProyectosEntity proy = proyectosModel.obtenerProyectos(gestiones.getIdProyecto());
+            gestiones.setProyectosByIdProyecto(proy);
+
+            RecursoGestionesEntity recurso = recursosGestionesModel.obtenerRecursoGestion(gestiones.getIdTipoRecurso());
+            gestiones.setRecursoGestionesByIdGestion(recurso);
+
             if (modelo.modificarGestion(gestiones) !=1){
                 JsfUtil.setErrorMessage(null,"Error al modificar el Gestion");
                 return null;
@@ -46,6 +58,12 @@ public class GestionProyectoBean {
                 return "registroGestion?faces-redirect=true";
             }
         } else {
+            ProyectosEntity proy = proyectosModel.obtenerProyectos(gestiones.getIdProyecto());
+            gestiones.setProyectosByIdProyecto(proy);
+
+            RecursoGestionesEntity recurso = recursosGestionesModel.obtenerRecursoGestion(gestiones.getIdTipoRecurso());
+            gestiones.setRecursoGestionesByIdGestion(recurso);
+
             if (modelo.insertarGestion(gestiones) !=1){
                 JsfUtil.setErrorMessage(null,"ya se registro esta Gestion");
                 return null;

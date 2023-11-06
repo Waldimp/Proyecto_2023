@@ -4,6 +4,8 @@ package sv.edu.udb.www.proyecto_2023.managedBeans;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity;
+import sv.edu.udb.www.proyecto_2023.entities.RolUsuarioEntity;
+import sv.edu.udb.www.proyecto_2023.model.RolUsuariosModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
 import sv.edu.udb.www.proyecto_2023.entities.UsuariosEntity;
 import sv.edu.udb.www.proyecto_2023.model.UsuariosModel;
@@ -13,7 +15,7 @@ import java.util.List;
 public class UsuariosBean {
 
     UsuariosModel modelo = new UsuariosModel();
-
+    RolUsuariosModel rolUsuariosModel = new RolUsuariosModel();
     private UsuariosEntity usuario;
 
     private List<UsuariosEntity> listaUsuarios;
@@ -36,6 +38,8 @@ public class UsuariosBean {
 
     public String saveUsuario(){
         if(modelo.obtenerUsuario(usuario.getIdUsuario()) != null){
+            RolUsuarioEntity rol = rolUsuariosModel.obtenerRoles(usuario.getIdRol());
+            usuario.setRolUsuarioByIdRol(rol);
             if (modelo.modificarUsuario(usuario) !=1){
                 JsfUtil.setErrorMessage(null,"Error al modificar el usuario");
                 return null;
@@ -45,6 +49,8 @@ public class UsuariosBean {
             }
 
         }else{
+            RolUsuarioEntity rol = rolUsuariosModel.obtenerRoles(usuario.getIdRol());
+            usuario.setRolUsuarioByIdRol(rol);
             if (modelo.insertarUsuario(usuario) !=1){
                 JsfUtil.setErrorMessage(null,"ya se registro este usuario");
                 return null;

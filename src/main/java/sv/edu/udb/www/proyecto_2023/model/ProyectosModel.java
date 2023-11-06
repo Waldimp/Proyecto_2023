@@ -27,7 +27,7 @@ public class ProyectosModel {
 
     }
 
-    public ProyectosEntity obtenerProyectos (String idProyecto){
+    public ProyectosEntity obtenerProyectos (long idProyecto){
         EntityManager em = JpaUtil.getEntityManager();
 
         try{

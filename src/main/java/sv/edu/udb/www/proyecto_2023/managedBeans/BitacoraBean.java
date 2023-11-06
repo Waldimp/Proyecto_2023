@@ -7,6 +7,7 @@ import sv.edu.udb.www.proyecto_2023.entities.BitacoraProyectoEntity;
 import sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity;
 import sv.edu.udb.www.proyecto_2023.model.BitacoraModel;
 import sv.edu.udb.www.proyecto_2023.model.GestionProyectoModel;
+import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class BitacoraBean {
 
 BitacoraModel modelo = new BitacoraModel();
+ProyectosModel proyectosModel = new ProyectosModel();
 
 private BitacoraProyectoEntity bitacora;
 
@@ -37,9 +39,9 @@ public BitacoraBean(){
    }
 
     public String saveBitacora(){
-//        bitacora.setDescripcionEvento("Nueva bitacora");
-
         if(modelo.obtenerProyectos(bitacora.getIdBitacora()) != null){
+            ProyectosEntity proy = proyectosModel.obtenerProyectos(bitacora.getIdProyecto());
+            bitacora.setProyectosByIdProyecto(proy);
             if (modelo.modificarBitacora(bitacora) !=1){
                 JsfUtil.setErrorMessage(null,"Error al modificar el Bitacora");
                 return null;
@@ -48,6 +50,8 @@ public BitacoraBean(){
                 return "registroBitacora?faces-redirect=true";
             }
         } else {
+            ProyectosEntity proy = proyectosModel.obtenerProyectos(bitacora.getIdProyecto());
+            bitacora.setProyectosByIdProyecto(proy);
             if (modelo.insertarBitacora(bitacora) !=1){
                 JsfUtil.setErrorMessage(null,"ya se registro esta bitacora");
                 return null;

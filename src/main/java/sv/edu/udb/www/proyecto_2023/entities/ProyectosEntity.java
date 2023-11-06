@@ -16,8 +16,8 @@ import java.util.Collection;
 })
 public class ProyectosEntity {
     @Id
-    @Column(name = "id_proyecto", nullable = false, length = 20)
-    private String idProyecto;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long idProyecto;
     @Basic
     @Column(name = "nombre_proyecto", nullable = false, length = 100)
     private String nombreProyecto;
@@ -48,11 +48,11 @@ public class ProyectosEntity {
     @OneToMany(mappedBy = "proyectosByIdProyecto")
     private Collection<TareasProyectosEntity> tareasProyectosByIdProyecto;
 
-    public String getIdProyecto() {
+    public long getIdProyecto() {
         return idProyecto;
     }
 
-    public void setIdProyecto(String idProyecto) {
+    public void setIdProyecto(long idProyecto) {
         this.idProyecto = idProyecto;
     }
 
@@ -104,38 +104,6 @@ public class ProyectosEntity {
         this.idTipoProyecto = idTipoProyecto;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProyectosEntity that = (ProyectosEntity) o;
-
-        if (idProyecto != null ? !idProyecto.equals(that.idProyecto) : that.idProyecto != null) return false;
-        if (nombreProyecto != null ? !nombreProyecto.equals(that.nombreProyecto) : that.nombreProyecto != null)
-            return false;
-        if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
-        if (fechaInicio != null ? !fechaInicio.equals(that.fechaInicio) : that.fechaInicio != null) return false;
-        if (fechaFin != null ? !fechaFin.equals(that.fechaFin) : that.fechaFin != null) return false;
-        if (observaciones != null ? !observaciones.equals(that.observaciones) : that.observaciones != null)
-            return false;
-        if (idTipoProyecto != null ? !idTipoProyecto.equals(that.idTipoProyecto) : that.idTipoProyecto != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idProyecto != null ? idProyecto.hashCode() : 0;
-        result = 31 * result + (nombreProyecto != null ? nombreProyecto.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        result = 31 * result + (fechaInicio != null ? fechaInicio.hashCode() : 0);
-        result = 31 * result + (fechaFin != null ? fechaFin.hashCode() : 0);
-        result = 31 * result + (observaciones != null ? observaciones.hashCode() : 0);
-        result = 31 * result + (idTipoProyecto != null ? idTipoProyecto.hashCode() : 0);
-        return result;
-    }
 
     public Collection<BitacoraProyectoEntity> getBitacoraProyectosByIdProyecto() {
         return bitacoraProyectosByIdProyecto;

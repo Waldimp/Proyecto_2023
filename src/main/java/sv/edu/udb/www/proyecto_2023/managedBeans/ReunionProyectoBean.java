@@ -4,6 +4,9 @@ package sv.edu.udb.www.proyecto_2023.managedBeans;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity;
+import sv.edu.udb.www.proyecto_2023.entities.UsuariosEntity;
+import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
+import sv.edu.udb.www.proyecto_2023.model.UsuariosModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
 import sv.edu.udb.www.proyecto_2023.entities.ReunionProyectoEntity;
 import sv.edu.udb.www.proyecto_2023.model.ReunionProyectoModel;
@@ -13,7 +16,9 @@ import java.util.List;
 public class ReunionProyectoBean {
 
     ReunionProyectoModel modelo = new ReunionProyectoModel();
+    ProyectosModel proyectosModel = new ProyectosModel();
 
+    UsuariosModel usuariosModel = new UsuariosModel();
     private ReunionProyectoEntity reunionProyecto;
 
     private List<ReunionProyectoEntity> listaReuniones;
@@ -38,6 +43,12 @@ public class ReunionProyectoBean {
 
     public String saveReunionProyecto(){
         if(modelo.obtenerReunionesProyecto(reunionProyecto.getIdReunion()) != null){ // Modificar
+            ProyectosEntity proy = proyectosModel.obtenerProyectos(reunionProyecto.getIdProyecto());
+            reunionProyecto.setProyectosByIdProyecto(proy);
+
+            UsuariosEntity usu = usuariosModel.obtenerUsuario(reunionProyecto.getIdUsuario());
+            reunionProyecto.setUsuariosByIdUsuario(usu);
+            
             if (modelo.modificarReunionProyecto(reunionProyecto) !=1){
                 JsfUtil.setErrorMessage(null,"Error al modificar la Reunion");
                 return null;
@@ -46,6 +57,12 @@ public class ReunionProyectoBean {
                 return "registroReunionesProyecto?faces-redirect=true";
             }
         } else {
+            ProyectosEntity proy = proyectosModel.obtenerProyectos(reunionProyecto.getIdProyecto());
+            reunionProyecto.setProyectosByIdProyecto(proy);
+
+            UsuariosEntity usu = usuariosModel.obtenerUsuario(reunionProyecto.getIdUsuario());
+            reunionProyecto.setUsuariosByIdUsuario(usu);
+
             if (modelo.insertarReunionProyecto(reunionProyecto) !=1){
                 JsfUtil.setErrorMessage(null,"ya se registro esta Reunion");
                 return null;

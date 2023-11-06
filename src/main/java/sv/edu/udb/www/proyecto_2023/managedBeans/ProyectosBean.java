@@ -77,7 +77,7 @@ public class ProyectosBean {
         return "registroProyectos?faces-redirect=true";
     }
 
-    public String cargarProyecto(String id) {
+    public String cargarProyecto(long id) {
         ProyectosEntity est = modelo.obtenerProyectos(id);
         if (est != null) {
             proyecto = est; // Cargar los datos del estudiante en el formulario
