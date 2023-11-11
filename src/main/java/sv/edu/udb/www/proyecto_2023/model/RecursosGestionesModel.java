@@ -24,7 +24,7 @@ public class RecursosGestionesModel {
         }
     }
 
-    public RecursoGestionesEntity obtenerRecursoGestion (String idRecurso){
+    public RecursoGestionesEntity obtenerRecursoGestion (long idRecurso){
         EntityManager em = JpaUtil.getEntityManager();
 
         try{

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "tarea_asignadas", schema = "proyectos_2023")
+@Table(name = "tarea_asignadas", schema = "proyecto_2023")
 @NamedQueries({
         @NamedQuery(name="tarea_asignadas.allTareasAsignadas",query = "SELECT e FROM TareaAsignadasEntity e"),
 @NamedQuery(name="tarea_asignadas.findByFechaInicio",query = "SELECT e FROM TareaAsignadasEntity e where e.fechaInicio= :fechaIni"),
@@ -15,8 +15,9 @@ import java.sql.Date;
 })
 public class TareaAsignadasEntity {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id_tarea_asignada")
-    private String idTareaAsignada;
+    private long idTareaAsignada;
     @Basic
     @Column(name = "fecha_inicio")
     private Date fechaInicio;
@@ -36,11 +37,11 @@ public class TareaAsignadasEntity {
     @JoinColumn(name = "id_tarea", referencedColumnName = "id_tarea", insertable=false, updatable=false)
     private TareasProyectosEntity tareasProyectosByIdTarea;
 
-    public String getIdTareaAsignada() {
+    public long getIdTareaAsignada() {
         return idTareaAsignada;
     }
 
-    public void setIdTareaAsignada(String idTareaAsignada) {
+    public void setIdTareaAsignada(long idTareaAsignada) {
         this.idTareaAsignada = idTareaAsignada;
     }
 
@@ -74,33 +75,6 @@ public class TareaAsignadasEntity {
 
     public void setIdTarea(String idTarea) {
         this.idTarea = idTarea;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TareaAsignadasEntity that = (TareaAsignadasEntity) o;
-
-        if (idTareaAsignada != null ? !idTareaAsignada.equals(that.idTareaAsignada) : that.idTareaAsignada != null)
-            return false;
-        if (fechaInicio != null ? !fechaInicio.equals(that.fechaInicio) : that.fechaInicio != null) return false;
-        if (fechaFinal != null ? !fechaFinal.equals(that.fechaFinal) : that.fechaFinal != null) return false;
-        if (idUsuario != null ? !idUsuario.equals(that.idUsuario) : that.idUsuario != null) return false;
-        if (idTarea != null ? !idTarea.equals(that.idTarea) : that.idTarea != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idTareaAsignada != null ? idTareaAsignada.hashCode() : 0;
-        result = 31 * result + (fechaInicio != null ? fechaInicio.hashCode() : 0);
-        result = 31 * result + (fechaFinal != null ? fechaFinal.hashCode() : 0);
-        result = 31 * result + (idUsuario != null ? idUsuario.hashCode() : 0);
-        result = 31 * result + (idTarea != null ? idTarea.hashCode() : 0);
-        return result;
     }
 
     public UsuariosEntity getUsuariosByIdUsuario() {

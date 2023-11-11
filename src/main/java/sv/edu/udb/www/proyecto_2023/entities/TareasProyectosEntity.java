@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
-@Table(name = "tareas_proyectos", schema = "proyectos_2023")
+@Table(name = "tareas_proyectos", schema = "proyecto_2023")
 @NamedQueries({
         @NamedQuery(name="tareas_proyectos.allTareas",query = "SELECT e FROM TareasProyectosEntity e"),
         @NamedQuery(name="tareas_proyectos.findByIdTarea",query = "SELECT e FROM TareasProyectosEntity e where e.idTarea= :id_tarea")    ,
@@ -18,8 +18,9 @@ import java.util.Collection;
 })
 public class TareasProyectosEntity {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id_tarea", nullable = false, length = 20)
-    private String idTarea;
+    private long idTarea;
     @Basic
     @Column(name = "nombre_tarea", nullable = false)
     private int nombreTarea;
@@ -50,11 +51,11 @@ public class TareasProyectosEntity {
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto", insertable=false, updatable=false)
     private ProyectosEntity proyectosByIdProyecto;
 
-    public String getIdTarea() {
+    public long getIdTarea() {
         return idTarea;
     }
 
-    public void setIdTarea(String idTarea) {
+    public void setIdTarea(long idTarea) {
         this.idTarea = idTarea;
     }
 
@@ -120,42 +121,6 @@ public class TareasProyectosEntity {
 
     public void setIdProyecto(String idProyecto) {
         this.idProyecto = idProyecto;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TareasProyectosEntity that = (TareasProyectosEntity) o;
-
-        if (nombreTarea != that.nombreTarea) return false;
-        if (plazosCumplimiento != that.plazosCumplimiento) return false;
-        if (idTarea != null ? !idTarea.equals(that.idTarea) : that.idTarea != null) return false;
-        if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
-        if (fechaRegistro != null ? !fechaRegistro.equals(that.fechaRegistro) : that.fechaRegistro != null)
-            return false;
-        if (prioridad != null ? !prioridad.equals(that.prioridad) : that.prioridad != null) return false;
-        if (estadoTarea != null ? !estadoTarea.equals(that.estadoTarea) : that.estadoTarea != null) return false;
-        if (observacionesTarea != null ? !observacionesTarea.equals(that.observacionesTarea) : that.observacionesTarea != null)
-            return false;
-        if (idProyecto != null ? !idProyecto.equals(that.idProyecto) : that.idProyecto != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idTarea != null ? idTarea.hashCode() : 0;
-        result = 31 * result + nombreTarea;
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        result = 31 * result + (fechaRegistro != null ? fechaRegistro.hashCode() : 0);
-        result = 31 * result + plazosCumplimiento;
-        result = 31 * result + (prioridad != null ? prioridad.hashCode() : 0);
-        result = 31 * result + (estadoTarea != null ? estadoTarea.hashCode() : 0);
-        result = 31 * result + (observacionesTarea != null ? observacionesTarea.hashCode() : 0);
-        result = 31 * result + (idProyecto != null ? idProyecto.hashCode() : 0);
-        return result;
     }
 
     public Collection<TareaAsignadasEntity> getTareaAsignadasByIdTarea() {

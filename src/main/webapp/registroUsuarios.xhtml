@@ -34,7 +34,7 @@
                                 <h:outputLabel for="idUsuario" value="ID USUARIO:"/>
                                 <h:inputText id="idUsuario" styleClass="form-control"
                                              value="#{usuariosBean.usuario.idUsuario}"
-                                             required="true"
+                                             required="true" disabled="true"
                                              requiredMessage="Ingresa ID del Usuario"
                                 >
                                 </h:inputText>
@@ -102,7 +102,7 @@
                             </h:panelGrid>
                             <h:commandButton value="Guardar" styleClass="btn btn-success"
                                              action="#{usuariosBean.saveUsuario()}" style="margin-right:10px"/>
-                            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                            <h:commandButton action="#{usuariosBean.reload()}" value="Limpiar" styleClass="btn btn-danger"/>
                         </h:form>
                     </div>
                 </div>

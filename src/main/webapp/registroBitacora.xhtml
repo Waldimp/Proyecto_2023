@@ -34,7 +34,7 @@
                         <h:outputLabel for="idBitacora" value="id Bitacora:"/>
                         <h:inputText id="idBitacora" styleClass="form-control"
                                      value="#{bitacoraBean.bitacora.idBitacora}"
-                                     required="true"
+                                     required="true"  disabled="true"
                                      requiredMessage="Ingresa ID de Bitacora"
                         >
                         </h:inputText>
@@ -74,7 +74,7 @@
                     </h:panelGrid>
                     <h:commandButton value="Guardar" styleClass="btn btn-success"
                                      action="#{bitacoraBean.saveBitacora()}" style="margin-right:10px"/>
-                    <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                    <h:commandButton  action="#{bitacoraBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
                 </h:form>
             </div>
         </div>

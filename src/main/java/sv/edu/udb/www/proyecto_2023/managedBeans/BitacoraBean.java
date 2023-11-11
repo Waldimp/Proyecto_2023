@@ -74,11 +74,15 @@ public BitacoraBean(){
         return "registroBitacora?faces-redirect=true";
     }
 
-    public String cargarProyecto(String id) {
+    public String cargarProyecto(long id) {
         BitacoraProyectoEntity est = modelo.obtenerProyectos(id);
         if (est != null) {
             bitacora = est; // Cargar los datos del estudiante en el formulario
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String reload(){
+        return "registroBitacora?faces-redirect=true";
     }
 }

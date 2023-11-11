@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "gestion_proyecto", schema = "proyectos_2023")
+@Table(name = "gestion_proyecto", schema = "proyecto_2023")
 @NamedQueries({
         @NamedQuery(name="gestion_proyecto.findByFechaGestion",query = "SELECT e FROM GestionProyectoEntity e where e.fechaGestion=:fecha"),
         @NamedQuery(name="gestion_proyecto.findByTipoGestion",query = "SELECT e FROM GestionProyectoEntity e where e.tipoGestion=:tipo"),
@@ -14,8 +14,9 @@ import java.sql.Date;
 })
 public class GestionProyectoEntity {
     @Id
-    @Column(name = "id_gestion", nullable = false, length = 20)
-    private String idGestion;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id_gestion", nullable = false)
+    private long idGestion;
     @Basic
     @Column(name = "descripcion_gestion", nullable = false, length = 250)
     private String descripcionGestion;
@@ -27,10 +28,10 @@ public class GestionProyectoEntity {
     private String tipoGestion;
     @Basic
     @Column(name = "id_proyecto", nullable = false, length = 20)
-    private String idProyecto;
+    private long idProyecto;
     @Basic
     @Column(name = "id_tipo_recurso", nullable = false, length = 20)
-    private String idTipoRecurso;
+    private long idTipoRecurso;
     @OneToOne
     @JoinColumn(name = "id_gestion", referencedColumnName = "id_recurso", insertable=false, updatable=false)
     private RecursoGestionesEntity recursoGestionesByIdGestion;
@@ -38,11 +39,11 @@ public class GestionProyectoEntity {
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto", insertable=false, updatable=false)
     private ProyectosEntity proyectosByIdProyecto;
 
-    public String getIdGestion() {
+    public long getIdGestion() {
         return idGestion;
     }
 
-    public void setIdGestion(String idGestion) {
+    public void setIdGestion(long idGestion) {
         this.idGestion = idGestion;
     }
 
@@ -70,50 +71,20 @@ public class GestionProyectoEntity {
         this.tipoGestion = tipoGestion;
     }
 
-    public String getIdProyecto() {
+    public long getIdProyecto() {
         return idProyecto;
     }
 
-    public void setIdProyecto(String idProyecto) {
+    public void setIdProyecto(long idProyecto) {
         this.idProyecto = idProyecto;
     }
 
-    public String getIdTipoRecurso() {
+    public long getIdTipoRecurso() {
         return idTipoRecurso;
     }
 
-    public void setIdTipoRecurso(String idTipoRecurso) {
+    public void setIdTipoRecurso(long idTipoRecurso) {
         this.idTipoRecurso = idTipoRecurso;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        GestionProyectoEntity that = (GestionProyectoEntity) o;
-
-        if (idGestion != null ? !idGestion.equals(that.idGestion) : that.idGestion != null) return false;
-        if (descripcionGestion != null ? !descripcionGestion.equals(that.descripcionGestion) : that.descripcionGestion != null)
-            return false;
-        if (fechaGestion != null ? !fechaGestion.equals(that.fechaGestion) : that.fechaGestion != null) return false;
-        if (tipoGestion != null ? !tipoGestion.equals(that.tipoGestion) : that.tipoGestion != null) return false;
-        if (idProyecto != null ? !idProyecto.equals(that.idProyecto) : that.idProyecto != null) return false;
-        if (idTipoRecurso != null ? !idTipoRecurso.equals(that.idTipoRecurso) : that.idTipoRecurso != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idGestion != null ? idGestion.hashCode() : 0;
-        result = 31 * result + (descripcionGestion != null ? descripcionGestion.hashCode() : 0);
-        result = 31 * result + (fechaGestion != null ? fechaGestion.hashCode() : 0);
-        result = 31 * result + (tipoGestion != null ? tipoGestion.hashCode() : 0);
-        result = 31 * result + (idProyecto != null ? idProyecto.hashCode() : 0);
-        result = 31 * result + (idTipoRecurso != null ? idTipoRecurso.hashCode() : 0);
-        return result;
     }
 
     public RecursoGestionesEntity getRecursoGestionesByIdGestion() {

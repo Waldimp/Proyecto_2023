@@ -86,12 +86,16 @@ public class ReunionProyectoBean {
         return "registroReunionesProyecto?faces-redirect=true";
     }
 
-    public String cargarReunionProyecto(String id) {
+    public String cargarReunionProyecto(long id) {
         ReunionProyectoEntity est = modelo.obtenerReunionesProyecto(id);
         if (est != null) {
             reunionProyecto = est; // Cargar los datos del estudiante en el formulario
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String reload(){
+        return "registroReunionesProyecto?faces-redirect=true";
     }
 
 }

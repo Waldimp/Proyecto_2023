@@ -25,7 +25,7 @@ public class BitacoraModel {
         }
     }
 
-    public BitacoraProyectoEntity obtenerProyectos (String idBitacora){
+    public BitacoraProyectoEntity obtenerProyectos (long idBitacora){
         EntityManager em = JpaUtil.getEntityManager();
 
         try{

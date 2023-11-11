@@ -63,12 +63,16 @@ public class RecursoGestionesBean {
         return "registroRecursosGestion?faces-redirect=true";
     }
 
-    public String cargarProyecto(String id) {
+    public String cargarProyecto(long id) {
         RecursoGestionesEntity est = modelo.obtenerRecursoGestion(id);
         if (est != null) {
             recursos = est; // Cargar los datos del estudiante en el formulario
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String reload(){
+        return "registroRecursosGestion?faces-redirect=true";
     }
 
 }

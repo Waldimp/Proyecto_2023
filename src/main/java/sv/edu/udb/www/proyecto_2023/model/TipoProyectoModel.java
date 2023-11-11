@@ -23,7 +23,7 @@ public class TipoProyectoModel {
         }
     }
 
-    public TipoProyectoEntity obtenerTipoProyecto (String idTipo){
+    public TipoProyectoEntity obtenerTipoProyecto (long idTipo){
         EntityManager em = JpaUtil.getEntityManager();
 
         try{

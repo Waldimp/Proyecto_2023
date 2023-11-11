@@ -34,7 +34,7 @@
                             <h:outputLabel for="idRecurso" value="id Recurso Gestio:"/>
                             <h:inputText id="idRecurso" styleClass="form-control"
                                          value="#{recursoGestionesBean.recursos.idRecurso}"
-                                         required="true"
+                                         required="true" disabled="true"
                                          requiredMessage="Ingresa ID del RECURSO"
                             >
                             </h:inputText>
@@ -53,7 +53,7 @@
                         </h:panelGrid>
                         <h:commandButton value="Guardar" styleClass="btn btn-success"
                                          action="#{recursoGestionesBean.saveRecursoGestion()}" style="margin-right:10px"/>
-                        <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                        <h:commandButton action="#{recursoGestionesBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
                     </h:form>
                 </div>
             </div>

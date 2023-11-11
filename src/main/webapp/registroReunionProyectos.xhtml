@@ -34,7 +34,7 @@
                                 <h:outputLabel for="idReunion" value="id Reunion Proyecto:"/>
                                 <h:inputText id="idReunion" styleClass="form-control"
                                              value="#{reunionProyectoBean.reunionProyecto.idReunion}"
-                                             required="true"
+                                             required="true" disabled="true"
                                              requiredMessage="Ingresa ID del Reunion"
                                 >
                                 </h:inputText>
@@ -74,7 +74,7 @@
                             </h:panelGrid>
                             <h:commandButton value="Guardar" styleClass="btn btn-success"
                                              action="#{reunionProyectoBean.saveReunionProyecto()}" style="margin-right:10px"/>
-                            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                            <h:commandButton action="#{proyectosBean.reload()}" value="Limpiar" styleClass="btn btn-danger"/>
                         </h:form>
                     </div>
                 </div>

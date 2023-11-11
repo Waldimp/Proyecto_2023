@@ -64,11 +64,15 @@ public class TipoProyectoBean {
         return "registroTipoProyecto?faces-redirect=true";
     }
 
-    public String cargarTipoProyecto(String id) {
+    public String cargarTipoProyecto(long id) {
         TipoProyectoEntity est = modelo.obtenerTipoProyecto(id);
         if (est != null) {
             tipoProyecto = est; // Cargar los datos del estudiante en el formulario
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String reload(){
+        return "registroTipoProyecto?faces-redirect=true";
     }
 }

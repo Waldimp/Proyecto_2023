@@ -35,7 +35,7 @@
                                 <h:outputLabel for="idTipo" value="id Tipo Proyecto:"/>
                                 <h:inputText id="idTipo" styleClass="form-control"
                                              value="#{tipoProyectoBean.tipoProyecto.idTipoProyecto}"
-                                             required="true"
+                                             required="true"  disabled="true"
                                              requiredMessage="Ingresa ID del Tipo de Proyecto"
                                 >
                                 </h:inputText>
@@ -54,7 +54,7 @@
                             </h:panelGrid>
                             <h:commandButton value="Guardar" styleClass="btn btn-success"
                                              action="#{tipoProyectoBean.saveTipoProyecto()}" style="margin-right:10px"/>
-                            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                            <h:commandButton action="#{tipoProyectoBean.reload()}" value="Limpiar" styleClass="btn btn-danger"/>
                         </h:form>
                     </div>
                 </div>

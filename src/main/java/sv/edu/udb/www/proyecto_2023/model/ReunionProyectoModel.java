@@ -24,7 +24,7 @@ public class ReunionProyectoModel {
         }
     }
 
-    public ReunionProyectoEntity obtenerReunionesProyecto (String idReunion){
+    public ReunionProyectoEntity obtenerReunionesProyecto (long idReunion){
         EntityManager em = JpaUtil.getEntityManager();
 
         try{

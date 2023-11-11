@@ -87,11 +87,15 @@ public class GestionProyectoBean {
         return "registroGestion?faces-redirect=true";
     }
 
-    public String cargarProyecto(String id) {
+    public String cargarProyecto(long id) {
         GestionProyectoEntity est = modelo.obtenerGestion(id);
         if (est != null) {
             gestiones = est; // Cargar los datos del estudiante en el formulario
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String reload(){
+        return "registroGestion?faces-redirect=true";
     }
 }

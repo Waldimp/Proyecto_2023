@@ -73,11 +73,15 @@ public class UsuariosBean {
         return "registroUsuarios?faces-redirect=true";
     }
 
-    public String cargarUsuario(String id) {
+    public String cargarUsuario(long id) {
         UsuariosEntity est = modelo.obtenerUsuario(id);
         if (est != null) {
             usuario = est; // Cargar los datos del estudiante en el formulario
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String reload(){
+        return "registroUsuarios?faces-redirect=true";
     }
 }

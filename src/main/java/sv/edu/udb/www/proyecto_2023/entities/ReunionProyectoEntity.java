@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "reunion_proyecto", schema = "proyectos_2023")
+@Table(name = "reunion_proyecto", schema = "proyecto_2023")
 @NamedQueries({
         @NamedQuery(name="reunion_proyecto.findByFechaEvento",query = "SELECT e FROM ReunionProyectoEntity e where e.fechaEvento= :fecha"),
         @NamedQuery(name="reunion_proyecto.findByIdProyecto",query = "SELECT e FROM ReunionProyectoEntity e where e.idProyecto= :idProyecto"),
@@ -16,8 +16,9 @@ import java.sql.Date;
 public class ReunionProyectoEntity {
 
     @Id
-    @Column(name = "id_reunion", nullable = false, length = 20)
-    private String idReunion;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id_reunion", nullable = false)
+    private long idReunion;
     @Basic
     @Column(name = "nombre_reunion", nullable = false, length = 250)
     private String nombreReunion;
@@ -29,10 +30,10 @@ public class ReunionProyectoEntity {
     private String descripcionEvento;
     @Basic
     @Column(name = "id_proyecto", nullable = false, length = 20)
-    private String idProyecto;
+    private long idProyecto;
     @Basic
     @Column(name = "id_usuario", nullable = false, length = 20)
-    private String idUsuario;
+    private long idUsuario;
     @ManyToOne
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto", insertable=false, updatable=false)
     private ProyectosEntity proyectosByIdProyecto;
@@ -40,11 +41,11 @@ public class ReunionProyectoEntity {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", insertable=false, updatable=false)
     private UsuariosEntity usuariosByIdUsuario;
 
-    public String getIdReunion() {
+    public long getIdReunion() {
         return idReunion;
     }
 
-    public void setIdReunion(String idReunion) {
+    public void setIdReunion(long idReunion) {
         this.idReunion = idReunion;
     }
 
@@ -72,50 +73,20 @@ public class ReunionProyectoEntity {
         this.descripcionEvento = descripcionEvento;
     }
 
-    public String getIdProyecto() {
+    public long getIdProyecto() {
         return idProyecto;
     }
 
-    public void setIdProyecto(String idProyecto) {
+    public void setIdProyecto(long idProyecto) {
         this.idProyecto = idProyecto;
     }
 
-    public String getIdUsuario() {
+    public long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ReunionProyectoEntity that = (ReunionProyectoEntity) o;
-
-        if (idReunion != null ? !idReunion.equals(that.idReunion) : that.idReunion != null) return false;
-        if (nombreReunion != null ? !nombreReunion.equals(that.nombreReunion) : that.nombreReunion != null)
-            return false;
-        if (fechaEvento != null ? !fechaEvento.equals(that.fechaEvento) : that.fechaEvento != null) return false;
-        if (descripcionEvento != null ? !descripcionEvento.equals(that.descripcionEvento) : that.descripcionEvento != null)
-            return false;
-        if (idProyecto != null ? !idProyecto.equals(that.idProyecto) : that.idProyecto != null) return false;
-        if (idUsuario != null ? !idUsuario.equals(that.idUsuario) : that.idUsuario != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idReunion != null ? idReunion.hashCode() : 0;
-        result = 31 * result + (nombreReunion != null ? nombreReunion.hashCode() : 0);
-        result = 31 * result + (fechaEvento != null ? fechaEvento.hashCode() : 0);
-        result = 31 * result + (descripcionEvento != null ? descripcionEvento.hashCode() : 0);
-        result = 31 * result + (idProyecto != null ? idProyecto.hashCode() : 0);
-        result = 31 * result + (idUsuario != null ? idUsuario.hashCode() : 0);
-        return result;
     }
 
     public ProyectosEntity getProyectosByIdProyecto() {

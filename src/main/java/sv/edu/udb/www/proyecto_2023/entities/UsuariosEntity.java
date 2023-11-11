@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "usuarios", schema = "proyectos_2023")
+@Table(name = "usuarios", schema = "proyecto_2023")
 
 @NamedQueries({
  @NamedQuery(name="usuarios.AllUsuarios",query = "SELECT e FROM UsuariosEntity e"),
@@ -19,8 +19,9 @@ import java.util.Collection;
 public class UsuariosEntity {
 
     @Id
-    @Column(name = "id_usuario", nullable = false, length = 20)
-    private String idUsuario;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id_usuario", nullable = false)
+    private long idUsuario;
     @Basic
     @Column(name = "nombre", nullable = true, length = 100)
     private String nombre;
@@ -56,11 +57,11 @@ public class UsuariosEntity {
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol", insertable=false, updatable=false)
     private RolUsuarioEntity rolUsuarioByIdRol;
 
-    public String getIdUsuario() {
+    public long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -134,42 +135,6 @@ public class UsuariosEntity {
 
     public void setIdRol(String idRol) {
         this.idRol = idRol;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UsuariosEntity that = (UsuariosEntity) o;
-
-        if (idUsuario != null ? !idUsuario.equals(that.idUsuario) : that.idUsuario != null) return false;
-        if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
-        if (apellido != null ? !apellido.equals(that.apellido) : that.apellido != null) return false;
-        if (edad != null ? !edad.equals(that.edad) : that.edad != null) return false;
-        if (direccion != null ? !direccion.equals(that.direccion) : that.direccion != null) return false;
-        if (telefono != null ? !telefono.equals(that.telefono) : that.telefono != null) return false;
-        if (dui != null ? !dui.equals(that.dui) : that.dui != null) return false;
-        if (correo != null ? !correo.equals(that.correo) : that.correo != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (idRol != null ? !idRol.equals(that.idRol) : that.idRol != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idUsuario != null ? idUsuario.hashCode() : 0;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (apellido != null ? apellido.hashCode() : 0);
-        result = 31 * result + (edad != null ? edad.hashCode() : 0);
-        result = 31 * result + (direccion != null ? direccion.hashCode() : 0);
-        result = 31 * result + (telefono != null ? telefono.hashCode() : 0);
-        result = 31 * result + (dui != null ? dui.hashCode() : 0);
-        result = 31 * result + (correo != null ? correo.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (idRol != null ? idRol.hashCode() : 0);
-        return result;
     }
 
     public Collection<ReunionProyectoEntity> getReunionProyectosByIdUsuario() {

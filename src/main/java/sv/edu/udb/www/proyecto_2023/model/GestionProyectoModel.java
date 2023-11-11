@@ -23,7 +23,7 @@ public class GestionProyectoModel {
         }
     }
 
-    public GestionProyectoEntity obtenerGestion (String idGestion){
+    public GestionProyectoEntity obtenerGestion (long idGestion){
         EntityManager em = JpaUtil.getEntityManager();
 
         try{

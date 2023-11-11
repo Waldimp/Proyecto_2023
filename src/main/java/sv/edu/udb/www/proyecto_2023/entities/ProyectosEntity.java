@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
-@Table(name = "proyectos", schema = "proyectos_2023")
+@Table(name = "proyectos", schema = "proyecto_2023")
 @NamedQueries({
         @NamedQuery(name="proyectos.findByIdProyecto",query = "SELECT e FROM ProyectosEntity e where e.idProyecto= :id_proyecto"),
         @NamedQuery(name="proyectos.findByFechaInicio",query = "SELECT e FROM ProyectosEntity e where e.fechaInicio= :fechaIni"),
@@ -17,6 +17,7 @@ import java.util.Collection;
 public class ProyectosEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id_proyecto", nullable = false)
     private long idProyecto;
     @Basic
     @Column(name = "nombre_proyecto", nullable = false, length = 100)
@@ -35,7 +36,7 @@ public class ProyectosEntity {
     private String observaciones;
     @Basic
     @Column(name = "id_tipo_proyecto", nullable = false, length = 20)
-    private String idTipoProyecto;
+    private long idTipoProyecto;
     @OneToMany(mappedBy = "proyectosByIdProyecto")
     private Collection<BitacoraProyectoEntity> bitacoraProyectosByIdProyecto;
     @OneToMany(mappedBy = "proyectosByIdProyecto")
@@ -96,11 +97,11 @@ public class ProyectosEntity {
         this.observaciones = observaciones;
     }
 
-    public String getIdTipoProyecto() {
+    public long getIdTipoProyecto() {
         return idTipoProyecto;
     }
 
-    public void setIdTipoProyecto(String idTipoProyecto) {
+    public void setIdTipoProyecto(long idTipoProyecto) {
         this.idTipoProyecto = idTipoProyecto;
     }
 

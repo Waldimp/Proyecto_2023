@@ -5,14 +5,15 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "tipo_proyecto", schema = "proyectos_2023")
+@Table(name = "tipo_proyecto", schema = "proyecto_2023")
 @NamedQuery(name="tipo_proyecto.allTipoProyecto",query = "SELECT e FROM TipoProyectoEntity e")
 @NamedQuery(name="tipo_proyecto.findByNombreTipo",query = "SELECT e FROM TipoProyectoEntity e where e.idTipoProyecto= :id")
 public class TipoProyectoEntity {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "Id_tipo_proyecto", nullable = false, length = 20)
-    private String idTipoProyecto;
+    private long idTipoProyecto;
     @Basic
     @Column(name = "nombre_tipo", nullable = false, length = 100)
     private String nombreTipo;
@@ -22,11 +23,11 @@ public class TipoProyectoEntity {
     @OneToMany(mappedBy = "tipoProyectoByIdTipoProyecto")
     private Collection<ProyectosEntity> proyectosByIdTipoProyecto;
 
-    public String getIdTipoProyecto() {
+    public long getIdTipoProyecto() {
         return idTipoProyecto;
     }
 
-    public void setIdTipoProyecto(String idTipoProyecto) {
+    public void setIdTipoProyecto(long idTipoProyecto) {
         this.idTipoProyecto = idTipoProyecto;
     }
 
@@ -44,29 +45,6 @@ public class TipoProyectoEntity {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TipoProyectoEntity that = (TipoProyectoEntity) o;
-
-        if (idTipoProyecto != null ? !idTipoProyecto.equals(that.idTipoProyecto) : that.idTipoProyecto != null)
-            return false;
-        if (nombreTipo != null ? !nombreTipo.equals(that.nombreTipo) : that.nombreTipo != null) return false;
-        if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idTipoProyecto != null ? idTipoProyecto.hashCode() : 0;
-        result = 31 * result + (nombreTipo != null ? nombreTipo.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        return result;
     }
 
     public Collection<ProyectosEntity> getProyectosByIdTipoProyecto() {

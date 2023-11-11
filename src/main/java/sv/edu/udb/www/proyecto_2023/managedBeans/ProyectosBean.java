@@ -84,4 +84,8 @@ public class ProyectosBean {
         }
         return null; // No redireccionamos, permanecemos en la misma página
     }
+
+    public String reload(){
+        return "registroProyectos?faces-redirect=true";
+    }
 }

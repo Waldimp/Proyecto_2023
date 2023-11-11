@@ -46,7 +46,7 @@ public class UsuariosModel {
         }
     }
 
-    public UsuariosEntity obtenerUsuario (String idUsuario){
+    public UsuariosEntity obtenerUsuario (long idUsuario){
         EntityManager em = JpaUtil.getEntityManager();
 
         try{
