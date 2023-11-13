@@ -73,7 +73,7 @@ public class ProyectosModel {
         }
     }
 
-    public int eliminarProyecto (String id){
+    public int eliminarProyecto (long id){
         EntityManager em = JpaUtil.getEntityManager();
         int filas =0;
 

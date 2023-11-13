@@ -36,7 +36,7 @@
                                 <h:outputLabel for="idProyecto" value="ID Proyecto:"/>
                                 <h:inputText id="idProyecto" styleClass="form-control"
                                              value="#{proyectosBean.proyecto.idProyecto}"
-                                             required="true" disabled="true"
+                                             required="true"
                                              requiredMessage="Ingresa ID del Proyecto"
                                 >
                                 </h:inputText>
@@ -58,7 +58,7 @@
                                              value="#{proyectosBean.proyecto.fechaInicio}"
                                              required="false"
                                              requiredMessage="Debes fecha Inicio del proyecto">
-                                    <f:convertDateTime pattern="yyyy/MM/dd"/>
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:inputText>
 
                                 <h:outputLabel for="fechaFin" value="fecha Final:"/>
@@ -66,7 +66,7 @@
                                              value="#{proyectosBean.proyecto.fechaFin}"
                                              required="false"
                                              requiredMessage="Debes registrar fecha fin del proyecto">
-                                    <f:convertDateTime pattern="yyyy/MM/dd"/>
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:inputText>
 
                                 <h:outputLabel for="observaciones" value="Observaciones:"/>
@@ -121,13 +121,13 @@
                         <f:facet name="header">
                             <h:outputLabel value="fecha Inicio"/>
                         </f:facet>
-                        <h:outputText value="#{est.fechaInicio}"/>
+                        <h:outputText rendered="#{est.fechaInicio != null}" value="#{proyectosBean.fecha(est.fechaInicio)}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="fecha Fin"/>
                         </f:facet>
-                        <h:outputText value="#{est.fechaFin}"/>
+                        <h:outputText rendered="#{est.fechaFin != null}" value="#{proyectosBean.fecha(est.fechaFin)}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">

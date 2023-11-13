@@ -10,6 +10,7 @@ import sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity;
 import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -68,9 +69,8 @@ public class ProyectosBean {
 
     public String eliminarProyecto(){
         String idProyecto = JsfUtil.getRequest().getParameter("idProyecto");
-
-        if (modelo.eliminarProyecto(idProyecto)>0){
-            JsfUtil.setFlashMessage(null,"Proyecto eliminado correctamente");
+        if (modelo.eliminarProyecto(Long.parseLong(idProyecto))>0){
+            JsfUtil.setFlashMessage("ok","Proyecto eliminado correctamente");
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar este Proyecto");
         }
@@ -87,5 +87,14 @@ public class ProyectosBean {
 
     public String reload(){
         return "registroProyectos?faces-redirect=true";
+    }
+
+    public String fecha(java.util.Date _fecha){
+
+        if(_fecha != null ){
+            SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+            return mdyFormat.format(_fecha);
+        }
+        return "";
     }
 }
