@@ -8,66 +8,136 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <title>Login</title>
-    <h:outputStylesheet name="css/bootstrap.min.css" />
+<!--    <h:outputStylesheet name="css/bootstrap.min.css" />-->
     <h:outputStylesheet name="css/alertify.core.css" />
     <h:outputStylesheet name="css/alertify.default.css" />
     <h:outputScript name="js/alertify.js"/>
+
+    <h:outputStylesheet name="vendor/fontawesome-free/css/all.min.css" />
+    <h:outputStylesheet name="css/sb-admin-2.min.css" />
 </h:head>
 
-<h:body>
+<h:body class="bg-gradient-primary">
     <f:event listener="#{userSessionBean.checkLoggedIn}" type="preRenderView" />
-    <div class="container">
-        <div class="row justify-content-center" style="margin-top: 200px">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 col-lg-5">
-                <div class="p-4 p-md-5 mt-5">
-                    <div class="card p-4 mt-5">
-                        <h3 class="text-center mb-4">Acceder a sesion</h3>
-                        <h:form id="miFormulario" class="login-form">
-                            <h:panelGroup layout="block" styleClass="alert alert-danger"
-                                          rendered="#{not empty facesContext.messageList}">
-                                <h:messages />
-                            </h:panelGroup>
+<!--    <div class="container">-->
+<!--        <div class="row justify-content-center" style="margin-top: 200px">-->
+<!--            <div class="col-md-3"></div>-->
+<!--            <div class="col-md-6 col-lg-5">-->
+<!--                <div class="p-4 p-md-5 mt-5">-->
+<!--                    <div class="card p-4 mt-5">-->
+<!--                        <h3 class="text-center mb-4">Acceder a sesion</h3>-->
+<!--                        <h:form id="miFormulario" class="login-form">-->
+<!--                            <h:panelGroup layout="block" styleClass="alert alert-danger"-->
+<!--                                          rendered="#{not empty facesContext.messageList}">-->
+<!--                                <h:messages />-->
+<!--                            </h:panelGroup>-->
 
-                            <div class="form-group mb-3">
-<!--                                <input type="text" class="form-control rounded-left" name="username"></input>-->
-                                <h:outputLabel for="correo" value="Correo:"/>
-                                <h:inputText id="correo" styleClass="form-control rounded-left"
-                                             value="#{userSessionBean.usuario.correo}"
-                                             required="true"
-                                             requiredMessage="Ingresa tu correo:">
-                                    <f:validateRegex pattern="^[\w\.-]+@[\w\.-]+\.\w+$" />
-                                </h:inputText>
-                            </div>
-                            <div class="form-group mb-3 d-flex">
-<!--                                <input type="password" class="form-control rounded-left" name="password"></input>-->
-                                <h:outputLabel for="pass" value="Contraseña:"/>
-                                <h:inputSecret id="pass" styleClass="form-control rounded-left"
-                                             value="#{userSessionBean.usuario.password}"
-                                             required="true"
-                                             requiredMessage="Ingresa tu password:"
-                                >
-                                </h:inputSecret>
-                            </div>
-                            <div class="form-group mb-3 text-center">
-                                <h:commandButton value="Iniciar sesion" styleClass="btn btn-primary rounded p-3 px-5"
-                                                 action="#{userSessionBean.loginUsuario()}" style="margin-right:10px"/>
-
-<!--                                <input type="submit" class="btn btn-primary rounded p-3 px-5" name="btnIniciarSesion" value="Iniciar sesion"/>-->
-                            </div>
-<!--                            <%if (error != null){ %>-->
-<!--                            <div class="alert alert-danger">-->
-<!--                                <b>-->
-<!--                                    <%= error %>-->
-<!--                                </b>-->
+<!--                            <div class="form-group mb-3">-->
+<!--&lt;!&ndash;                                <input type="text" class="form-control rounded-left" name="username"></input>&ndash;&gt;-->
+<!--                                <h:outputLabel for="correo" value="Correo:"/>-->
+<!--                                <h:inputText id="correo" styleClass="form-control rounded-left"-->
+<!--                                             value="#{userSessionBean.usuario.correo}"-->
+<!--                                             required="true"-->
+<!--                                             requiredMessage="Ingresa tu correo:">-->
+<!--                                    <f:validateRegex pattern="^[\w\.-]+@[\w\.-]+\.\w+$" />-->
+<!--                                </h:inputText>-->
 <!--                            </div>-->
-<!--                            <% } %>-->
-                        </h:form>
+<!--                            <div class="form-group mb-3 d-flex">-->
+<!--&lt;!&ndash;                                <input type="password" class="form-control rounded-left" name="password"></input>&ndash;&gt;-->
+<!--                                <h:outputLabel for="pass" value="Contraseña:"/>-->
+<!--                                <h:inputSecret id="pass" styleClass="form-control rounded-left"-->
+<!--                                             value="#{userSessionBean.usuario.password}"-->
+<!--                                             required="true"-->
+<!--                                             requiredMessage="Ingresa tu password:"-->
+<!--                                >-->
+<!--                                </h:inputSecret>-->
+<!--                            </div>-->
+<!--                            <div class="form-group mb-3 text-center">-->
+<!--                                <h:commandButton value="Iniciar sesion" styleClass="btn btn-primary rounded p-3 px-5"-->
+<!--                                                 action="#{userSessionBean.loginUsuario()}" style="margin-right:10px"/>-->
+
+<!--&lt;!&ndash;                                <input type="submit" class="btn btn-primary rounded p-3 px-5" name="btnIniciarSesion" value="Iniciar sesion"/>&ndash;&gt;-->
+<!--                            </div>-->
+<!--&lt;!&ndash;                            <%if (error != null){ %>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <b>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <%= error %>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </b>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <% } %>&ndash;&gt;-->
+<!--                        </h:form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+                                    <h:form class="user" id="miFormulario">
+                                        <div class="form-group">
+                                            <h:outputLabel for="exampleInputEmail" value="Correo:"/>
+                                            <h:inputText id="exampleInputEmail" styleClass="form-control form-control-user"
+                                                         value="#{userSessionBean.usuario.correo}"
+                                                         required="true"
+                                                         requiredMessage="Ingresa tu correo:">
+                                                <f:validateRegex pattern="^[\w\.-]+@[\w\.-]+\.\w+$" />
+                                            </h:inputText>
+                                        </div>
+                                        <div class="form-group">
+                                            <h:outputLabel for="exampleInputPassword" value="Contraseña:"/>
+                                            <h:inputSecret id="exampleInputPassword" styleClass="form-control form-control-user"
+                                                           value="#{userSessionBean.usuario.password}"
+                                                           required="true"
+                                                           requiredMessage="Ingresa tu password:"
+                                            >
+                                            </h:inputSecret>
+
+                                        </div>
+
+                                        <h:commandButton value="Iniciar sesion" styleClass="btn btn-primary btn-user btn-block"
+                                                         action="#{userSessionBean.loginUsuario()}" style="margin-right:10px"/>
+
+<!--                                        <a href="index.html" class="btn btn-primary btn-user btn-block">-->
+<!--                                            Login-->
+<!--                                        </a>-->
+                                        <hr />
+                                    </h:form>
+                                    <hr />
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
+    <h:outputScript name="vendor/jquery/jquery.min.js"/>
+    <h:outputScript name="vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+    <h:outputScript name="vendor/jquery-easing/jquery.easing.min.js"/>
+    <h:outputScript name="js/sb-admin-2.min.js"/>
+
+
 </h:body>
 
 
