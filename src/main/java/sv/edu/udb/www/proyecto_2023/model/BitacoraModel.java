@@ -71,7 +71,7 @@ public class BitacoraModel {
         }
     }
 
-    public int eliminarBitacora (String id){
+    public int eliminarBitacora (long id){
         EntityManager em = JpaUtil.getEntityManager();
         int filas =0;
 

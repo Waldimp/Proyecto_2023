@@ -56,8 +56,8 @@ public class TipoProyectoBean {
     public String eliminarTipoProyecto(){
         String idTipoProyecto = JsfUtil.getRequest().getParameter("idTipoProyecto");
 
-        if (modelo.eliminarTipoProyecto(idTipoProyecto)>0){
-            JsfUtil.setFlashMessage(null,"Tipo de proyecto eliminado correctamente");
+        if (modelo.eliminarTipoProyecto(Long.parseLong(idTipoProyecto))>0){
+            JsfUtil.setFlashMessage("ok","Tipo de proyecto eliminado correctamente");
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar este Tipo de proyecto");
         }

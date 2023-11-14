@@ -15,6 +15,10 @@
     <h:outputStylesheet  name="css/alertify.default.css" />
     <h:outputScript  name="js/alertify.js"/>
     <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
 </h:head>
 <h:body>
     <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
@@ -34,7 +38,7 @@
                                 <h:outputLabel for="idReunion" value="id Reunion Proyecto:"/>
                                 <h:inputText id="idReunion" styleClass="form-control"
                                              value="#{reunionProyectoBean.reunionProyecto.idReunion}"
-                                             required="true" disabled="true"
+                                             required="true"
                                              requiredMessage="Ingresa ID del Reunion"
                                 >
                                 </h:inputText>
@@ -45,7 +49,7 @@
                                              requiredMessage="Debes ingresar Nombre de la reunion"/>
 
                                 <h:outputLabel for="fechaEvento" value="fecha Inicio Evento:"/>
-                                <h:inputText id="fechaEvento" styleClass="form-control"
+                                <h:inputText id="fechaEvento" styleClass="form-control fechaProy"
                                              value="#{reunionProyectoBean.reunionProyecto.fechaEvento}"
                                              required="false">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -101,7 +105,7 @@
                         <f:facet name="header">
                             <h:outputLabel value="fecha Evento"/>
                         </f:facet>
-                        <h:outputText value="#{est.fechaEvento}"/>
+                        <h:outputText value="#{reunionProyectoBean.fecha(est.fechaEvento)}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -149,6 +153,10 @@
         function confirmarEliminacion(){
         return confirm("¿Está seguro que desea eliminar este Registro");
         }
+
+        $(document).ready(function() {
+        $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
 
     </h:outputScript>
 </h:body>

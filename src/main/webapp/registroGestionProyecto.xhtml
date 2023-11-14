@@ -15,6 +15,10 @@
     <h:outputStylesheet  name="css/alertify.default.css" />
     <h:outputScript  name="js/alertify.js"/>
     <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
 </h:head>
 <h:body>
     <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
@@ -34,7 +38,7 @@
                         <h:outputLabel for="idGestion" value="id Gestion Proyecto:"/>
                         <h:inputText id="idGestion" styleClass="form-control"
                                      value="#{gestionProyectoBean.gestiones.idGestion}"
-                                     required="true"  disabled="true"
+                                     required="true"
                                      requiredMessage="Ingresa ID de la Gestion"
                         >
                         </h:inputText>
@@ -44,8 +48,8 @@
                                      required="true"
                                      requiredMessage="Debes ingresar Descripcion"/>
 
-                        <h:outputLabel for="fechaGestion" value="fecha de la gestion:"/>
-                        <h:inputText id="fechaGestion" styleClass="form-control"
+                        <h:outputLabel for="fechaGestion" value="Fecha de la gestion:"/>
+                        <h:inputText id="fechaGestion" styleClass="form-control fechaProy"
                                      value="#{gestionProyectoBean.gestiones.fechaGestion}"
                                      required="false">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -98,12 +102,12 @@
                         </f:facet>
                         <h:outputText value="#{est.descripcionGestion}"/>
                     </h:column>
-<!--                    <h:column>-->
-<!--                        <f:facet name="header">-->
-<!--                            <h:outputLabel value="Fecha Gestion"/>-->
-<!--                        </f:facet>-->
-<!--                        <h:outputText value="#{est.fechaGestion}"/>-->
-<!--                    </h:column>-->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Fecha Gestion"/>
+                        </f:facet>
+                        <h:outputText value="#{gestionProyectoBean.fecha(est.fechaGestion)}"/>
+                    </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Proyecto Asignado"/>
@@ -144,6 +148,10 @@
         function confirmarEliminacion(){
         return confirm("¿Está seguro que desea eliminar este Registro");
         }
+
+        $(document).ready(function() {
+            $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
 
     </h:outputScript>
 </h:body>

@@ -90,11 +90,10 @@ public class ProyectosBean {
     }
 
     public String fecha(java.util.Date _fecha){
-
-        if(_fecha != null ){
-            SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
-            return mdyFormat.format(_fecha);
+        if (_fecha == null) {
+            return "";
         }
-        return "";
+        SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return mdyFormat.format(_fecha);
     }
 }

@@ -15,6 +15,10 @@
     <h:outputStylesheet  name="css/alertify.default.css" />
     <h:outputScript  name="js/alertify.js"/>
     <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
+
 </h:head>
 <h:body>
     <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
@@ -54,7 +58,7 @@
 
 
                                 <h:outputLabel for="fechaInicio" value="fecha Inicio:"/>
-                                <h:inputText id="fechaInicio" styleClass="form-control"
+                                <h:inputText id="fechaInicio" styleClass="form-control fechaProy"
                                              value="#{proyectosBean.proyecto.fechaInicio}"
                                              required="false"
                                              requiredMessage="Debes fecha Inicio del proyecto">
@@ -62,7 +66,7 @@
                                 </h:inputText>
 
                                 <h:outputLabel for="fechaFin" value="fecha Final:"/>
-                                <h:inputText id="fechaFin" styleClass="form-control"
+                                <h:inputText id="fechaFin" styleClass="form-control fechaProy"
                                              value="#{proyectosBean.proyecto.fechaFin}"
                                              required="false"
                                              requiredMessage="Debes registrar fecha fin del proyecto">
@@ -169,6 +173,10 @@
         function confirmarEliminacion(){
         return confirm("Está seguro que desea eliminar este Registro");
         }
+
+        $(document).ready(function() {
+            $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
 
     </h:outputScript>
 </h:body>

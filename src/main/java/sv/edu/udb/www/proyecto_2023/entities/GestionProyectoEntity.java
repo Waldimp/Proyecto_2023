@@ -2,7 +2,7 @@ package sv.edu.udb.www.proyecto_2023.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "gestion_proyecto", schema = "proyecto_2023")
@@ -33,7 +33,7 @@ public class GestionProyectoEntity {
     @Column(name = "id_tipo_recurso", nullable = false, length = 20)
     private long idTipoRecurso;
     @OneToOne
-    @JoinColumn(name = "id_gestion", referencedColumnName = "id_recurso", insertable=false, updatable=false)
+    @JoinColumn(name = "id_tipo_recurso", referencedColumnName = "id_recurso", insertable=false, updatable=false)
     private RecursoGestionesEntity recursoGestionesByIdGestion;
     @ManyToOne
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto", insertable=false, updatable=false)

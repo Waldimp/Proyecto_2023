@@ -70,7 +70,7 @@ public class RecursosGestionesModel {
         }
     }
 
-    public int eliminarRecurso(String idRecurso){
+    public int eliminarRecurso(long idRecurso){
         EntityManager em = JpaUtil.getEntityManager();
         int filas =0;
 

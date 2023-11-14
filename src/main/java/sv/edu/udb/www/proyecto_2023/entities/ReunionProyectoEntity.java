@@ -2,7 +2,7 @@ package sv.edu.udb.www.proyecto_2023.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "reunion_proyecto", schema = "proyecto_2023")

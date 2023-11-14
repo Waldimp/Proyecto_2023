@@ -10,6 +10,8 @@ import sv.edu.udb.www.proyecto_2023.model.UsuariosModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
 import sv.edu.udb.www.proyecto_2023.entities.ReunionProyectoEntity;
 import sv.edu.udb.www.proyecto_2023.model.ReunionProyectoModel;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 @ManagedBean
 @RequestScoped
@@ -54,7 +56,7 @@ public class ReunionProyectoBean {
                 return null;
             }else{
                 JsfUtil.setFlashMessage("ok","Reunion modificada con exito!");
-                return "registroReunionesProyecto?faces-redirect=true";
+                return "registroReunionProyectos?faces-redirect=true";
             }
         } else {
             ProyectosEntity proy = proyectosModel.obtenerProyectos(reunionProyecto.getIdProyecto());
@@ -68,7 +70,7 @@ public class ReunionProyectoBean {
                 return null;
             }else{
                 JsfUtil.setFlashMessage("ok","Reunion registrada con exito!");
-                return "registroReunionesProyecto?faces-redirect=true";
+                return "registroReunionProyectos?faces-redirect=true";
             }
         }
 
@@ -78,12 +80,12 @@ public class ReunionProyectoBean {
     public String eliminarReunionProyecto(){
         String idReunionProyecto = JsfUtil.getRequest().getParameter("idReunionProyecto");
 
-        if (modelo.eliminarReunionProyecto(idReunionProyecto)>0){
-            JsfUtil.setFlashMessage(null,"Reunion Proyecto eliminado correctamente");
+        if (modelo.eliminarReunionProyecto(Long.parseLong(idReunionProyecto))>0){
+            JsfUtil.setFlashMessage("ok","Reunion Proyecto eliminado correctamente");
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Reunion Proyecto");
         }
-        return "registroReunionesProyecto?faces-redirect=true";
+        return "registroReunionProyectos?faces-redirect=true";
     }
 
     public String cargarReunionProyecto(long id) {
@@ -95,7 +97,15 @@ public class ReunionProyectoBean {
     }
 
     public String reload(){
-        return "registroReunionesProyecto?faces-redirect=true";
+        return "registroReunionProyectos?faces-redirect=true";
+    }
+
+    public String fecha(java.util.Date _fecha){
+        if (_fecha == null) {
+            return "";
+        }
+        SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return mdyFormat.format(_fecha);
     }
 
 }

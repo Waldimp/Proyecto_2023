@@ -7,6 +7,8 @@ import sv.edu.udb.www.proyecto_2023.entities.RecursoGestionesEntity;
 import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
 import sv.edu.udb.www.proyecto_2023.model.RecursosGestionesModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 import sv.edu.udb.www.proyecto_2023.entities.GestionProyectoEntity;
 import sv.edu.udb.www.proyecto_2023.model.GestionProyectoModel;
@@ -55,7 +57,7 @@ public class GestionProyectoBean {
                 return null;
             }else{
                 JsfUtil.setFlashMessage("ok","Gestion modificado con exito!");
-                return "registroGestion?faces-redirect=true";
+                return "registroGestionProyecto?faces-redirect=true";
             }
         } else {
             ProyectosEntity proy = proyectosModel.obtenerProyectos(gestiones.getIdProyecto());
@@ -69,7 +71,7 @@ public class GestionProyectoBean {
                 return null;
             }else{
                 JsfUtil.setFlashMessage("ok","Gestion registrada con exito!");
-                return "registroGestion?faces-redirect=true";
+                return "registroGestionProyecto?faces-redirect=true";
             }
         }
 
@@ -79,12 +81,12 @@ public class GestionProyectoBean {
     public String eliminarGestion(){
         String idGestion = JsfUtil.getRequest().getParameter("idGestion");
 
-        if (modelo.eliminarGestion(idGestion)>0){
-            JsfUtil.setFlashMessage(null,"Gestion eliminada correctamente");
+        if (modelo.eliminarGestion(Long.parseLong(idGestion))>0){
+            JsfUtil.setFlashMessage("ok","Gestion eliminada correctamente");
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Gestion");
         }
-        return "registroGestion?faces-redirect=true";
+        return "registroGestionProyecto?faces-redirect=true";
     }
 
     public String cargarProyecto(long id) {
@@ -96,6 +98,14 @@ public class GestionProyectoBean {
     }
 
     public String reload(){
-        return "registroGestion?faces-redirect=true";
+        return "registroGestionProyecto?faces-redirect=true";
+    }
+
+    public String fecha(java.util.Date _fecha){
+        if (_fecha == null) {
+            return "";
+        }
+        SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return mdyFormat.format(_fecha);
     }
 }

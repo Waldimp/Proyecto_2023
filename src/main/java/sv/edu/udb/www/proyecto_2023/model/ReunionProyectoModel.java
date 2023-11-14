@@ -72,7 +72,7 @@ public class ReunionProyectoModel {
     }
 
 
-    public int eliminarReunionProyecto (String idReunion){
+    public int eliminarReunionProyecto (long idReunion){
         EntityManager em = JpaUtil.getEntityManager();
         int filas =0;
 

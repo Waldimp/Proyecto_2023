@@ -71,7 +71,7 @@ public class GestionProyectoModel {
     }
 
 
-    public int eliminarGestion (String idGestion){
+    public int eliminarGestion (long idGestion){
         EntityManager em = JpaUtil.getEntityManager();
         int filas =0;
 

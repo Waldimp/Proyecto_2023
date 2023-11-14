@@ -65,8 +65,8 @@ public class UsuariosBean {
     public String eliminarUsuario(){
         String idUsuario = JsfUtil.getRequest().getParameter("idUsuario");
 
-        if (modelo.eliminarUsuario(idUsuario)>0){
-            JsfUtil.setFlashMessage(null,"Usuario eliminado correctamente");
+        if (modelo.eliminarUsuario(Long.parseLong(idUsuario))>0){
+            JsfUtil.setFlashMessage("ok","Usuario eliminado correctamente");
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar este usuario");
         }

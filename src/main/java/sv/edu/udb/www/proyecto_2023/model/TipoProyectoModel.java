@@ -69,7 +69,7 @@ public class TipoProyectoModel {
         }
     }
 
-    public int eliminarTipoProyecto (String idTipo){
+    public int eliminarTipoProyecto (long idTipo){
         EntityManager em = JpaUtil.getEntityManager();
         int filas =0;
 

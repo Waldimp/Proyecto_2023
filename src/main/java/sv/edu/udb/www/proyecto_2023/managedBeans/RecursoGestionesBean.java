@@ -55,8 +55,8 @@ public class RecursoGestionesBean {
     public String eliminarRecursos() {
         String idRecursoGestion = JsfUtil.getRequest().getParameter("idRecursoGestion");
 
-        if (modelo.eliminarRecurso(idRecursoGestion)>0){
-            JsfUtil.setFlashMessage(null,"Tipo de Recurso eliminado correctamente");
+        if (modelo.eliminarRecurso(Long.parseLong(idRecursoGestion))>0){
+            JsfUtil.setFlashMessage("ok","Tipo de Recurso eliminado correctamente");
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar este Recurso");
         }

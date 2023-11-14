@@ -92,13 +92,13 @@ public class UsuariosModel {
         }
     }
 
-    public int eliminarUsuario (String dui){
+    public int eliminarUsuario (long id_usuario){
         EntityManager em = JpaUtil.getEntityManager();
         int filas =0;
 
         try{
 
-            UsuariosEntity usu = em.find(UsuariosEntity.class,dui);
+            UsuariosEntity usu = em.find(UsuariosEntity.class,id_usuario);
             if (usu !=null){
                 EntityTransaction tran = em.getTransaction();
                 tran.begin();

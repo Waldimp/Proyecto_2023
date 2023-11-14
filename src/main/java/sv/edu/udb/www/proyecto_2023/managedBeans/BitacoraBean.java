@@ -66,7 +66,7 @@ public BitacoraBean(){
     public String eliminarBitacora(){
         String idBitacora = JsfUtil.getRequest().getParameter("idBitacora");
 
-        if (modelo.eliminarBitacora(idBitacora)>0){
+        if (modelo.eliminarBitacora(Long.parseLong(idBitacora))>0){
             JsfUtil.setFlashMessage("ok","Bitacora eliminada correctamente");
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Bitacora");
