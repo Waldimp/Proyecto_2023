@@ -37,23 +37,65 @@
         <!-- Heading -->
         <li>
             <div class="sidebar-heading">
-                Interface
+                Sistema
             </div>
         </li>
 
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" >
-                <i class="fas fa-fw fa-chart-area"/>
-                <span>Charts</span></a>
-        </li>
+        <c:if test = "#{userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario == 'Admin'}" >
+            <li class="nav-item">
+                <a class="nav-link" href="registroUsuarios.xhtml">
+                    <i class="fas fa-fw fa-users"/>
+                    <span>Usuarios</span></a>
+            </li>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link">
-                <i class="fas fa-fw fa-table"/>
-                <span>Tables</span></a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="registroTipoProyecto.xhtml">
+                    <i class="fas fa-fw fa-cog"/>
+                    <span>Tipos de Proyectos</span></a>
+            </li>
+        </c:if>
+
+        <c:if test = "#{userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario == 'Admin'
+                                    || userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario == 'Encargado de proyecto' }" >
+
+            <li class="nav-item">
+                <a class="nav-link" href="registroProyectos.xhtml">
+                    <i class="fas fa-fw fa-building"/>
+                    <span>Proyectos</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="registroRecursosGestion.xhtml">
+                    <i class="fas fa-fw fa-chart-area"/>
+                    <span>Gestión de Recursos</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="registroGestionProyecto.xhtml">
+                    <i class="fas fa-fw fa-chart-area"/>
+                    <span>Gestión de Proyectos</span></a>
+            </li>
+
+        </c:if>
+
+        <c:if test = "#{userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario == 'Admin'
+                                    || userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario == 'Empleado de área' }" >
+            <li class="nav-item">
+                <a class="nav-link" href="registroBitacora.xhtml">
+                    <i class="fas fa-fw fa-table"/>
+                    <span>Bitacora</span></a>
+            </li>
+        </c:if>
+
+        <c:if test = "#{userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario == 'Admin'
+                                    || userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario == 'Jefe de desarrollo' }" >
+
+            <li class="nav-item">
+                <a class="nav-link" href="registroReunionProyectos.xhtml">
+                    <i class="fas fa-fw fa-calendar"/>
+                    <span>Reunion Proyecto</span></a>
+            </li>
+        </c:if>
 
         <!-- Divider -->
         <li>
