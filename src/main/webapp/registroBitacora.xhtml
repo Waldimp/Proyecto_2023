@@ -10,132 +10,198 @@
 <h:head>
     <title>Registro de Bitacoras de proyectos</title>
     <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
-    <h:outputStylesheet   name="css/bootstrap5.min.css" />
+
     <h:outputStylesheet  name="css/alertify.core.css" />
     <h:outputStylesheet  name="css/alertify.default.css" />
     <h:outputScript  name="js/alertify.js"/>
-    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+
+    <h:outputStylesheet name="vendor/fontawesome-free/css/all.min.css" />
+    <h:outputStylesheet name="css/sb-admin-2.min.css" />
 </h:head>
 <h:body>
+
     <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
-    <ui:include src="nav.xhtml" />
-    <div class="container">
-        <div class="card mt-3 mb-2">
-            <div class="card-body">
-                <div class="row">
-            <div class="col-md-12">
-                <h2>Registro de Bitacoras de proyectos</h2>
-                <h:form id="miFormulario">
-                    <h:panelGroup layout="block" styleClass="alert alert-danger"
-                                  rendered="#{not empty facesContext.messageList}">
-                        <h:messages />
-                    </h:panelGroup>
-                    <h:panelGrid columns="4" styleClass="table">
-                        <h:outputLabel for="idBitacora" value="id Bitacora:"/>
-                        <h:inputText id="idBitacora" styleClass="form-control"
-                                     value="#{bitacoraBean.bitacora.idBitacora}"
-                                     required="true"
-                                     requiredMessage="Ingresa ID de Bitacora"
-                        >
-                        </h:inputText>
-                        <h:outputLabel for="descripcionBitacora" value="Descripcion de la bitacora:"/>
-                        <h:inputText id="descripcionBitacora" styleClass="form-control"
-                                     value="#{bitacoraBean.bitacora.descripcionBitacora}"
-                                     required="true"
-                                     requiredMessage="Debes ingresar Descripcion"/>
 
-                        <h:outputLabel for="tipoBitacora" value="Tipo Bitacora:"/>
-                        <h:inputText id="tipoBitacora" styleClass="form-control"
-                                     value="#{bitacoraBean.bitacora.tipoBitacora}"
-                                     required="false">
-                        </h:inputText>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="sidebar.xhtml" />
+        <!-- End of Sidebar -->
 
-                        <h:outputLabel for="descripcionEvento" value="Descripcion Evento:"/>
-                        <h:inputText id="descripcionEvento" styleClass="form-control"
-                                     value="#{bitacoraBean.bitacora.descripcionEvento}"
-                                     required="false"
-                                     requiredMessage="Debes ingresa descripcion Bitacora"/>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-                        <h:outputLabel for="idProyecto" value="Proyecto :"/>
-<!--                        <h:inputText id="idProyecto" styleClass="form-control"-->
-<!--                                     value="#{bitacoraBean.bitacora.idProyecto}"-->
-<!--                                     required="true"-->
-<!--                                     requiredMessage="Debes ingresar codigo del Proyecto Asignar"/>-->
+            <!-- Main Content -->
+            <div id="content">
 
-                        <h:selectOneMenu id="idProyecto" styleClass="form-control"
-                                         required="true" requiredMessage="Debes ingresar codigo del Proyecto Asignar"
-                                         value="#{bitacoraBean.bitacora.idProyecto}">
-                            <f:selectItems  value="#{proyectosBean.listaProyectos}" rendered="#{proyectosBean.listaProyectos.size()>0}"
-                                            var="option" itemValue="#{option.idProyecto}"  itemLabel="#{option.nombreProyecto}" />
+                <!-- Topbar -->
+                <ui:include src="topBar.xhtml" />
+                <!-- End of Topbar -->
 
-                        </h:selectOneMenu>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Registro de Bitacoras de proyectos</h1>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <!-- Basic Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Formulario de registro</h6>
+                                </div>
+                                <div class="card-body">
+                                    Completa los campos solicitados
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h:form id="miFormulario">
+                                                <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                                              rendered="#{not empty facesContext.messageList}">
+                                                    <h:messages />
+                                                </h:panelGroup>
+                                                <h:panelGrid columns="4" styleClass="table">
+                                                    <h:outputLabel for="idBitacora" value="id Bitacora:"/>
+                                                    <h:inputText id="idBitacora" styleClass="form-control"
+                                                                 value="#{bitacoraBean.bitacora.idBitacora}"
+                                                                 required="true"
+                                                                 requiredMessage="Ingresa ID de Bitacora"
+                                                    >
+                                                    </h:inputText>
+                                                    <h:outputLabel for="descripcionBitacora" value="Descripcion de la bitacora:"/>
+                                                    <h:inputText id="descripcionBitacora" styleClass="form-control"
+                                                                 value="#{bitacoraBean.bitacora.descripcionBitacora}"
+                                                                 required="true"
+                                                                 requiredMessage="Debes ingresar Descripcion"/>
+
+                                                    <h:outputLabel for="tipoBitacora" value="Tipo Bitacora:"/>
+                                                    <h:inputText id="tipoBitacora" styleClass="form-control"
+                                                                 value="#{bitacoraBean.bitacora.tipoBitacora}"
+                                                                 required="false">
+                                                    </h:inputText>
+
+                                                    <h:outputLabel for="descripcionEvento" value="Descripcion Evento:"/>
+                                                    <h:inputText id="descripcionEvento" styleClass="form-control"
+                                                                 value="#{bitacoraBean.bitacora.descripcionEvento}"
+                                                                 required="false"
+                                                                 requiredMessage="Debes ingresa descripcion Bitacora"/>
+
+                                                    <h:outputLabel for="idProyecto" value="Proyecto :"/>
+
+                                                    <h:selectOneMenu id="idProyecto" styleClass="form-control"
+                                                                     required="true" requiredMessage="Debes ingresar codigo del Proyecto Asignar"
+                                                                     value="#{bitacoraBean.bitacora.idProyecto}">
+                                                        <f:selectItems  value="#{proyectosBean.listaProyectos}" rendered="#{proyectosBean.listaProyectos.size()>0}"
+                                                                        var="option" itemValue="#{option.idProyecto}"  itemLabel="#{option.nombreProyecto}" />
+
+                                                    </h:selectOneMenu>
 
 
-                    </h:panelGrid>
-                    <h:commandButton value="Guardar" styleClass="btn btn-success"
-                                     action="#{bitacoraBean.saveBitacora()}" style="margin-right:10px"/>
-                    <h:commandButton  action="#{bitacoraBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
-                </h:form>
+                                                </h:panelGrid>
+                                                <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                                                 action="#{bitacoraBean.saveBitacora()}" style="margin-right:10px"/>
+                                                <h:commandButton  action="#{bitacoraBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Registros</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h:form >
+                                                <h:dataTable styleClass="table" value="#{bitacoraBean.getListaBitacoras()}"
+                                                             var="est" rendered="#{bitacoraBean.getListaBitacoras().size()>0}">
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="idBitacora"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.idBitacora}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Descripcion Bitacora"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.descripcionBitacora}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Tipo Bitacora"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.tipoBitacora}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Descripcion Evento"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.descripcionEvento}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Proyecto asignado"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.proyectosByIdProyecto.nombreProyecto}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Operaciones"/>
+                                                        </f:facet>
+                                                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                                                         action="#{bitacoraBean.eliminarBitacora()}"
+                                                                         onclick="return confirmarEliminacion();">
+                                                            <f:param name="idBitacora" value="#{est.idBitacora}"/>
+                                                        </h:commandButton>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Acciones"/>
+                                                        </f:facet>
+                                                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
+                                                                         action="#{bitacoraBean.cargarProyecto(est.idBitacora)}"/>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </h:form>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
+
+
         </div>
-            </div>
-        </div>
-        <hr></hr>
-        <div class="row mt-3">
-            <h:form >
-                <h:dataTable styleClass="table" value="#{bitacoraBean.getListaBitacoras()}"
-                             var="est" rendered="#{bitacoraBean.getListaBitacoras().size()>0}">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="idBitacora"/>
-                        </f:facet>
-                        <h:outputText value="#{est.idBitacora}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Descripcion Bitacora"/>
-                        </f:facet>
-                        <h:outputText value="#{est.descripcionBitacora}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Tipo Bitacora"/>
-                        </f:facet>
-                        <h:outputText value="#{est.tipoBitacora}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Descripcion Evento"/>
-                        </f:facet>
-                        <h:outputText value="#{est.descripcionEvento}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Proyecto asignado"/>
-                        </f:facet>
-                        <h:outputText value="#{est.proyectosByIdProyecto.nombreProyecto}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Operaciones"/>
-                        </f:facet>
-                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                         action="#{bitacoraBean.eliminarBitacora()}"
-                                         onclick="return confirmarEliminacion();">
-                            <f:param name="idBitacora" value="#{est.idBitacora}"/>
-                        </h:commandButton>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Acciones"/>
-                        </f:facet>
-                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
-                                         action="#{bitacoraBean.cargarProyecto(est.idBitacora)}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </div>
+
     </div>
+
+    <h:outputScript name="vendor/jquery/jquery.min.js"/>
+    <h:outputScript name="vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+    <h:outputScript name="vendor/jquery-easing/jquery.easing.min.js"/>
+    <h:outputScript name="js/sb-admin-2.min.js"/>
+
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
+
+
     <h:outputScript>
         <c:if test = "#{not empty flash.exito}" >
             alertify.success('#{flash.exito}');
@@ -143,6 +209,10 @@
         function confirmarEliminacion(){
         return confirm("Está seguro que desea eliminar este Registro");
         }
+
+        $(document).ready(function() {
+        $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
 
     </h:outputScript>
 </h:body>

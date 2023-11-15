@@ -8,149 +8,212 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-    <title>Registro de Bitacoras de proyectos</title>
+    <title>Registro de Gestiones de proyecto</title>
     <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
-    <h:outputStylesheet   name="css/bootstrap5.min.css" />
+
     <h:outputStylesheet  name="css/alertify.core.css" />
     <h:outputStylesheet  name="css/alertify.default.css" />
     <h:outputScript  name="js/alertify.js"/>
-    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
 
+    <h:outputStylesheet name="vendor/fontawesome-free/css/all.min.css" />
+    <h:outputStylesheet name="css/sb-admin-2.min.css" />
+</h:head>
+<h:body>
+
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="sidebar.xhtml" />
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <ui:include src="topBar.xhtml" />
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Registro de Gestiones de proyecto</h1>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <!-- Basic Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Formulario de registro</h6>
+                                </div>
+                                <div class="card-body">
+                                    Completa los campos solicitados
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h:form id="miFormulario">
+                                                <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                                              rendered="#{not empty facesContext.messageList}">
+                                                    <h:messages />
+                                                </h:panelGroup>
+                                                <h:panelGrid columns="4" styleClass="table">
+                                                    <h:outputLabel for="idGestion" value="id Gestion Proyecto:"/>
+                                                    <h:inputText id="idGestion" styleClass="form-control"
+                                                                 value="#{gestionProyectoBean.gestiones.idGestion}"
+                                                                 required="true"
+                                                                 requiredMessage="Ingresa ID de la Gestion"
+                                                    >
+                                                    </h:inputText>
+                                                    <h:outputLabel for="descripcionGestion" value="Descripcion de la gestion:"/>
+                                                    <h:inputText id="descripcionGestion" styleClass="form-control"
+                                                                 value="#{gestionProyectoBean.gestiones.descripcionGestion}"
+                                                                 required="true"
+                                                                 requiredMessage="Debes ingresar Descripcion"/>
+
+                                                    <h:outputLabel for="fechaGestion" value="Fecha de la gestion:"/>
+                                                    <h:inputText id="fechaGestion" styleClass="form-control fechaProy"
+                                                                 value="#{gestionProyectoBean.gestiones.fechaGestion}"
+                                                                 required="false">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:inputText>
+
+                                                    <h:outputLabel for="tipoGestion" value="Tipo de Gestion:"/>
+                                                    <h:inputText id="tipoGestion" styleClass="form-control"
+                                                                 value="#{gestionProyectoBean.gestiones.tipoGestion}"
+                                                                 required="true"
+                                                                 requiredMessage="Debes ingresar Tipo de Gestion"/>
+
+                                                    <h:outputLabel for="idProyecto" value="Codigo Proyecto:"/>
+                                                    <h:selectOneMenu id="idProyecto" styleClass="form-control"
+                                                                     required="true" requiredMessage="Debes ingresar el Proyecto Asignar"
+                                                                     value="#{gestionProyectoBean.gestiones.idProyecto}">
+                                                        <f:selectItems  value="#{proyectosBean.listaProyectos}" rendered="#{proyectosBean.listaProyectos.size()>0}"
+                                                                        var="option" itemValue="#{option.idProyecto}"  itemLabel="#{option.nombreProyecto}" />
+                                                    </h:selectOneMenu>
+
+                                                    <h:outputLabel for="idTipoRecurso" value="Codigo Tipo de Recurso:"/>
+                                                    <h:selectOneMenu id="idTipoRecurso" styleClass="form-control"
+                                                                     required="true" requiredMessage="Debes ingresar el Tipo de recurso de proyecto"
+                                                                     value="#{gestionProyectoBean.gestiones.idTipoRecurso}">
+                                                        <f:selectItems  value="#{recursoGestionesBean.listaRecursos}" rendered="#{recursoGestionesBean.listaRecursos.size()>0}"
+                                                                        var="option" itemValue="#{option.idRecurso}"  itemLabel="#{option.nombreRecurso}" />
+                                                    </h:selectOneMenu>
+                                                </h:panelGrid>
+                                                <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                                                 action="#{gestionProyectoBean.saveGestion()}" style="margin-right:10px"/>
+                                                <h:commandButton action="#{gestionProyectoBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Registros</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h:form >
+                                                <h:dataTable styleClass="table" value="#{gestionProyectoBean.gestListaGestiones()}"
+                                                             var="est" rendered="#{gestionProyectoBean.gestListaGestiones().size()>0}">
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="idGestion"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.idGestion}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Descripcion Gestion"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.descripcionGestion}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Fecha Gestion"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{gestionProyectoBean.fecha(est.fechaGestion)}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Proyecto Asignado"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.proyectosByIdProyecto.nombreProyecto}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Recurso Asignado"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.recursoGestionesByIdGestion.nombreRecurso}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Operaciones"/>
+                                                        </f:facet>
+                                                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                                                         action="#{gestionProyectoBean.eliminarGestion()}"
+                                                                         onclick="return confirmarEliminacion();">
+                                                            <f:param name="idGestion" value="#{est.idGestion}"/>
+                                                        </h:commandButton>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Acciones"/>
+                                                        </f:facet>
+                                                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
+                                                                         action="#{gestionProyectoBean.cargarProyecto(est.idGestion)}"/>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <h:outputScript name="vendor/jquery/jquery.min.js"/>
+    <h:outputScript name="vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+    <h:outputScript name="vendor/jquery-easing/jquery.easing.min.js"/>
+    <h:outputScript name="js/sb-admin-2.min.js"/>
+
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
     <h:outputScript  name="js/jquery-3.7.1.min.js"/>
     <h:outputStylesheet  name="css/jquery-ui.css"/>
     <h:outputScript  name="js/jquery-ui.min.js"/>
-</h:head>
-<h:body>
-    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
-    <ui:include src="nav.xhtml" />
-    <div class="container">
-        <div class="card mt-3 mb-2">
-            <div class="card-body">
-                <div class="row">
-            <div class="col-md-12">
-                <h2>Registro de Gestiones de proyecto</h2>
-                <h:form id="miFormulario">
-                    <h:panelGroup layout="block" styleClass="alert alert-danger"
-                                  rendered="#{not empty facesContext.messageList}">
-                        <h:messages />
-                    </h:panelGroup>
-                    <h:panelGrid columns="4" styleClass="table">
-                        <h:outputLabel for="idGestion" value="id Gestion Proyecto:"/>
-                        <h:inputText id="idGestion" styleClass="form-control"
-                                     value="#{gestionProyectoBean.gestiones.idGestion}"
-                                     required="true"
-                                     requiredMessage="Ingresa ID de la Gestion"
-                        >
-                        </h:inputText>
-                        <h:outputLabel for="descripcionGestion" value="Descripcion de la gestion:"/>
-                        <h:inputText id="descripcionGestion" styleClass="form-control"
-                                     value="#{gestionProyectoBean.gestiones.descripcionGestion}"
-                                     required="true"
-                                     requiredMessage="Debes ingresar Descripcion"/>
 
-                        <h:outputLabel for="fechaGestion" value="Fecha de la gestion:"/>
-                        <h:inputText id="fechaGestion" styleClass="form-control fechaProy"
-                                     value="#{gestionProyectoBean.gestiones.fechaGestion}"
-                                     required="false">
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </h:inputText>
 
-                        <h:outputLabel for="tipoGestion" value="Tipo de Gestion:"/>
-                        <h:inputText id="tipoGestion" styleClass="form-control"
-                                     value="#{gestionProyectoBean.gestiones.tipoGestion}"
-                                     required="true"
-                                     requiredMessage="Debes ingresar Tipo de Gestion"/>
-
-                        <h:outputLabel for="idProyecto" value="Codigo Proyecto:"/>
-                        <h:selectOneMenu id="idProyecto" styleClass="form-control"
-                                         required="true" requiredMessage="Debes ingresar el Proyecto Asignar"
-                                         value="#{gestionProyectoBean.gestiones.idProyecto}">
-                            <f:selectItems  value="#{proyectosBean.listaProyectos}" rendered="#{proyectosBean.listaProyectos.size()>0}"
-                                            var="option" itemValue="#{option.idProyecto}"  itemLabel="#{option.nombreProyecto}" />
-                        </h:selectOneMenu>
-
-                        <h:outputLabel for="idTipoRecurso" value="Codigo Tipo de Recurso:"/>
-                        <h:selectOneMenu id="idTipoRecurso" styleClass="form-control"
-                                         required="true" requiredMessage="Debes ingresar el Tipo de recurso de proyecto"
-                                         value="#{gestionProyectoBean.gestiones.idTipoRecurso}">
-                            <f:selectItems  value="#{recursoGestionesBean.listaRecursos}" rendered="#{recursoGestionesBean.listaRecursos.size()>0}"
-                                            var="option" itemValue="#{option.idRecurso}"  itemLabel="#{option.nombreRecurso}" />
-                        </h:selectOneMenu>
-                    </h:panelGrid>
-                    <h:commandButton value="Guardar" styleClass="btn btn-success"
-                                     action="#{gestionProyectoBean.saveGestion()}" style="margin-right:10px"/>
-                    <h:commandButton action="#{gestionProyectoBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
-                </h:form>
-            </div>
-        </div>
-            </div>
-        </div>
-        <hr></hr>
-        <div class="row mt-3">
-            <h:form >
-                <h:dataTable styleClass="table" value="#{gestionProyectoBean.gestListaGestiones()}"
-                             var="est" rendered="#{gestionProyectoBean.gestListaGestiones().size()>0}">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="idGestion"/>
-                        </f:facet>
-                        <h:outputText value="#{est.idGestion}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Descripcion Gestion"/>
-                        </f:facet>
-                        <h:outputText value="#{est.descripcionGestion}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Fecha Gestion"/>
-                        </f:facet>
-                        <h:outputText value="#{gestionProyectoBean.fecha(est.fechaGestion)}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Proyecto Asignado"/>
-                        </f:facet>
-                        <h:outputText value="#{est.proyectosByIdProyecto.nombreProyecto}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Recurso Asignado"/>
-                        </f:facet>
-                        <h:outputText value="#{est.recursoGestionesByIdGestion.nombreRecurso}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Operaciones"/>
-                        </f:facet>
-                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                         action="#{gestionProyectoBean.eliminarGestion()}"
-                                         onclick="return confirmarEliminacion();">
-                            <f:param name="idGestion" value="#{est.idGestion}"/>
-                        </h:commandButton>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Acciones"/>
-                        </f:facet>
-                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
-                                         action="#{gestionProyectoBean.cargarProyecto(est.idGestion)}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </div>
-    </div>
     <h:outputScript>
         <c:if test = "#{not empty flash.exito}" >
             alertify.success('#{flash.exito}');
         </c:if>
         function confirmarEliminacion(){
-        return confirm("¿Está seguro que desea eliminar este Registro");
+        return confirm("Está seguro que desea eliminar este Registro");
         }
 
         $(document).ready(function() {
-            $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
         });
 
     </h:outputScript>

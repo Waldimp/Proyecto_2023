@@ -8,101 +8,163 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-    <title>Registro de Proyectos</title>
+    <title>Registro de Recursos</title>
     <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
-    <h:outputStylesheet   name="css/bootstrap5.min.css" />
+
     <h:outputStylesheet  name="css/alertify.core.css" />
     <h:outputStylesheet  name="css/alertify.default.css" />
     <h:outputScript  name="js/alertify.js"/>
-    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+
+    <h:outputStylesheet name="vendor/fontawesome-free/css/all.min.css" />
+    <h:outputStylesheet name="css/sb-admin-2.min.css" />
 </h:head>
 <h:body>
+
     <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
-    <ui:include src="nav.xhtml" />
-    <div class="container">
-        <div class="card mt-3 mb-2">
-            <div class="card-body">
-                <div class="row">
-                <div class="col-md-12">
-                    <h2>Registro de Recursos</h2>
-                    <h:form id="miFormulario">
-                        <h:panelGroup layout="block" styleClass="alert alert-danger"
-                                      rendered="#{not empty facesContext.messageList}">
-                            <h:messages />
-                        </h:panelGroup>
-                        <h:panelGrid columns="2" styleClass="table">
-                            <h:outputLabel for="idRecurso" value="id Recurso Gestio:"/>
-                            <h:inputText id="idRecurso" styleClass="form-control"
-                                         value="#{recursoGestionesBean.recursos.idRecurso}"
-                                         required="true"
-                                         requiredMessage="Ingresa ID del RECURSO"
-                            >
-                            </h:inputText>
-                            <h:outputLabel for="nombreRecurso" value="Nombre del recurso:"/>
-                            <h:inputText id="nombreRecurso" styleClass="form-control"
-                                         value="#{recursoGestionesBean.recursos.nombreRecurso}"
-                                         required="true"
-                                         requiredMessage="Debes ingresar Nombre del recurso"/>
 
-                            <h:outputLabel for="descripcion" value="Descripcion del tipo de proyecto:"/>
-                            <h:inputText id="descripcion" styleClass="form-control"
-                                         value="#{recursoGestionesBean.recursos.descripcion}"
-                                         required="false"
-                                         requiredMessage="Debes ingresar descripcion"/>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="sidebar.xhtml" />
+        <!-- End of Sidebar -->
 
-                        </h:panelGrid>
-                        <h:commandButton value="Guardar" styleClass="btn btn-success"
-                                         action="#{recursoGestionesBean.saveRecursoGestion()}" style="margin-right:10px"/>
-                        <h:commandButton action="#{recursoGestionesBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
-                    </h:form>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <ui:include src="topBar.xhtml" />
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Registro de Recursos</h1>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <!-- Basic Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Formulario de registro</h6>
+                                </div>
+                                <div class="card-body">
+                                    Completa los campos solicitados
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h:form id="miFormulario">
+                                                <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                                              rendered="#{not empty facesContext.messageList}">
+                                                    <h:messages />
+                                                </h:panelGroup>
+                                                <h:panelGrid columns="2" styleClass="table">
+                                                    <h:outputLabel for="idRecurso" value="id Recurso Gestio:"/>
+                                                    <h:inputText id="idRecurso" styleClass="form-control"
+                                                                 value="#{recursoGestionesBean.recursos.idRecurso}"
+                                                                 required="true"
+                                                                 requiredMessage="Ingresa ID del RECURSO"
+                                                    >
+                                                    </h:inputText>
+                                                    <h:outputLabel for="nombreRecurso" value="Nombre del recurso:"/>
+                                                    <h:inputText id="nombreRecurso" styleClass="form-control"
+                                                                 value="#{recursoGestionesBean.recursos.nombreRecurso}"
+                                                                 required="true"
+                                                                 requiredMessage="Debes ingresar Nombre del recurso"/>
+
+                                                    <h:outputLabel for="descripcion" value="Descripcion del tipo de proyecto:"/>
+                                                    <h:inputText id="descripcion" styleClass="form-control"
+                                                                 value="#{recursoGestionesBean.recursos.descripcion}"
+                                                                 required="false"
+                                                                 requiredMessage="Debes ingresar descripcion"/>
+
+                                                </h:panelGrid>
+                                                <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                                                 action="#{recursoGestionesBean.saveRecursoGestion()}" style="margin-right:10px"/>
+                                                <h:commandButton action="#{recursoGestionesBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
+                                            </h:form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Registros</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h:form >
+                                                <h:dataTable styleClass="table" value="#{recursoGestionesBean.listaRecursos}"
+                                                             var="est" rendered="#{recursoGestionesBean.listaRecursos.size()>0}">
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="idRecurso"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.idRecurso}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Nombre Recurso"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.nombreRecurso}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Descripcion"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.descripcion}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Operaciones"/>
+                                                        </f:facet>
+                                                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                                                         action="#{recursoGestionesBean.eliminarRecursos()}"
+                                                                         onclick="return confirmarEliminacion();">
+                                                            <f:param name="idRecursoGestion" value="#{est.idRecurso}"/>
+                                                        </h:commandButton>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Acciones"/>
+                                                        </f:facet>
+                                                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
+                                                                         action="#{recursoGestionesBean.cargarProyecto(est.idRecurso)}"/>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-        </div>
-        <hr></hr>
-        <div class="row mt-3">
-            <h:form >
-                <h:dataTable styleClass="table" value="#{recursoGestionesBean.listaRecursos}"
-                             var="est" rendered="#{recursoGestionesBean.listaRecursos.size()>0}">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="idRecurso"/>
-                        </f:facet>
-                        <h:outputText value="#{est.idRecurso}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Nombre Recurso"/>
-                        </f:facet>
-                        <h:outputText value="#{est.nombreRecurso}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Descripcion"/>
-                        </f:facet>
-                        <h:outputText value="#{est.descripcion}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Operaciones"/>
-                        </f:facet>
-                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                         action="#{recursoGestionesBean.eliminarRecursos()}"
-                                         onclick="return confirmarEliminacion();">
-                            <f:param name="idRecursoGestion" value="#{est.idRecurso}"/>
-                        </h:commandButton>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Acciones"/>
-                        </f:facet>
-                        <h:commandButton value="Modificar" styleClass="btn btn-primary"
-                                         action="#{recursoGestionesBean.cargarProyecto(est.idRecurso)}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
         </div>
     </div>
+
+    <h:outputScript name="vendor/jquery/jquery.min.js"/>
+    <h:outputScript name="vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+    <h:outputScript name="vendor/jquery-easing/jquery.easing.min.js"/>
+    <h:outputScript name="js/sb-admin-2.min.js"/>
+
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
+
+
     <h:outputScript>
         <c:if test = "#{not empty flash.exito}" >
             alertify.success('#{flash.exito}');
@@ -110,6 +172,10 @@
         function confirmarEliminacion(){
         return confirm("Está seguro que desea eliminar este Registro");
         }
+
+        $(document).ready(function() {
+        $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
 
     </h:outputScript>
 </h:body>
