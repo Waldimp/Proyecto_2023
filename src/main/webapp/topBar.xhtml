@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"/>
+        </button>
+
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+
+            <li class="mt-3">
+                <div class="topbar-divider d-none d-sm-block"></div>
+            </li>
+
+            <!-- Nav Item - User Information -->
+            <c:if test = "#{userSessionBean.usuarioSesion != null }" >
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                        <h:outputText value="#{userSessionBean.usuarioSesion.nombre}" />&#xA0;
+                        <h:outputText value="#{userSessionBean.usuarioSesion.apellido}" />
+                    </span>
+                        <img class="img-profile rounded-circle" alt="img-profile"
+                             src="resources/vendor/undraw_profile.svg" />
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                         aria-labelledby="userDropdown">
+
+                        <h:form id="logouttForm">
+                            <h:commandLink styleClass="dropdown-item" data-toggle="modal" data-target="#logoutModal"  action="#{userSessionBean.logOut()}">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"/>
+                                Cerrar Sesión
+                            </h:commandLink>
+                        </h:form>
+
+                    </div>
+                </li>
+            </c:if>
+
+        </ul>
+
+    </nav>
+
+</ui:composition>
