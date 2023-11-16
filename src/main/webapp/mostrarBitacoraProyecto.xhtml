@@ -49,6 +49,14 @@
                                                  required="false"
                                                  requiredMessage="Debes ingresar descripcion Bitacora"/>
 
+                                    <h:outputLabel for="fechaInicio" value="Fecha Bitacora:"/>
+                                    <h:inputText id="fechaInicio" styleClass="form-control fechaProy"
+                                                 value="#{bitacoraBean.bitacora.fechaBitacora}"
+                                                 required="false"
+                                                 requiredMessage="Debes ingresar fecha de Bitacora">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:inputText>
+
                                     <h:outputLabel for="idProyecto" value="Proyecto :"/>
                                     <h:selectOneMenu id="idProyecto" styleClass="form-control"
                                                      required="true" requiredMessage="Debes ingresar codigo del Proyecto Asignar"
@@ -104,6 +112,12 @@
                                             <h:outputLabel value="Descripcion Evento"/>
                                         </f:facet>
                                         <h:outputText value="#{est.descripcionEvento}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="fecha Inicio"/>
+                                        </f:facet>
+                                        <h:outputText rendered="#{est.fechaBitacora != null}" value="#{bitacoraBean.fecha(est.fechaBitacora)}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">

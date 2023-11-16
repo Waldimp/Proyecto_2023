@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Registro de Proyectos</title>
+    <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
+
+    <h:outputStylesheet  name="css/alertify.core.css" />
+    <h:outputStylesheet  name="css/alertify.default.css" />
+    <h:outputScript  name="js/alertify.js"/>
+
+    <h:outputStylesheet name="vendor/fontawesome-free/css/all.min.css" />
+    <h:outputStylesheet name="css/sb-admin-2.min.css" />
+</h:head>
+<h:body>
+
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="sidebar.xhtml" />
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <ui:include src="topBar.xhtml" />
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Proyectos</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <h:outputText value="#{proyectosBean.conteoProyectos()}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Bitacoras</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <h:outputText value="#{bitacoraBean.conteoBitacoras()}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Reuniones
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <h:outputText value="#{reunionProyectoBean.conteoReuniones()}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Comentarios</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <h:outputText value="#{foroBean.conteoMensajes()}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+
+                            <!-- Illustrations -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Bienvenido de vuelta:
+                                        <h:outputText value="#{userSessionBean.usuarioSesion.nombre}" />&#xA0;
+                                        <h:outputText value="#{userSessionBean.usuarioSesion.apellido}" /></h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                             src="resources/vendor/undraw_posting_photo.svg" alt="..." />
+                                    </div>
+                                    <p>En nuestro sistema podrás llevar el control de tus proyectos, gestionar recursos, bitacoras y comentarios de seguimiento.
+                                    </p>
+
+                                    <a rel="nofollow" href="vistaProyectos.xhtml">Ver todos los proyectos &rarr;</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <h:outputScript name="vendor/jquery/jquery.min.js"/>
+    <h:outputScript name="vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+    <h:outputScript name="vendor/jquery-easing/jquery.easing.min.js"/>
+    <h:outputScript name="js/sb-admin-2.min.js"/>
+
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
+
+
+    <h:outputScript>
+        <c:if test = "#{not empty flash.exito}" >
+            alertify.success('#{flash.exito}');
+        </c:if>
+        function confirmarEliminacion(){
+        return confirm("Está seguro que desea eliminar este Registro");
+        }
+
+        $(document).ready(function() {
+        $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+
+    </h:outputScript>
+</h:body>
+</html>

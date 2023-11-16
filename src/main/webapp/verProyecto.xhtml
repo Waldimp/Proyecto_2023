@@ -56,15 +56,11 @@
                                         <p class="lead fw-normal text-white-50 mb-4">
                                             <h:outputText value="#{proyectosBean.proyecto.descripcion}"/>
                                         </p>
-                                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-center">
                                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                                <div class="d-flex align-items-end justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="small">
-                                                            <div class="text-muted"><h:outputText rendered="#{proyectosBean.proyecto.fechaInicio != null}" value="#{proyectosBean.fecha(proyectosBean.proyecto.fechaInicio)}"/> &middot; <h:outputText rendered="#{proyectosBean.proyecto.fechaFin != null}" value="#{proyectosBean.fecha(proyectosBean.proyecto.fechaFin)}"/></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <p class="lead fw-normal text-white-50 mb-4">
+                                                    <h:outputText rendered="#{proyectosBean.proyecto.fechaInicio != null}" value="#{proyectosBean.fecha(proyectosBean.proyecto.fechaInicio)}"/> &middot; <h:outputText rendered="#{proyectosBean.proyecto.fechaFin != null}" value="#{proyectosBean.fecha(proyectosBean.proyecto.fechaFin)}"/>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +69,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <div class="container-fluid">
 

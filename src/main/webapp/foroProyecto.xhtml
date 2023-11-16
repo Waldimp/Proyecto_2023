@@ -3,6 +3,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+    <f:event listener="#{foroBean.guardarIdProyecto(request.getParameter('id'), userSessionBean.usuarioSesion.idUsuario)}" type="preRenderView" />
+
     <div class="row">
 
         <div class="col-lg-12">
@@ -19,40 +21,48 @@
                             <div class="card bg-light">
                                 <div class="card-body">
                                     <!-- Comment form-->
-                                    <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Unete a la discusión y deja un comentario"></textarea></form>
-                                    <!-- Comment with nested comments-->
-                                    <div class="d-flex mb-4">
-                                        <!-- Parent comment-->
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                            <!-- Child comment 1-->
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">Commenter Name</div>
-                                                    And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                                </div>
-                                            </div>
-                                            <!-- Child comment 2-->
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">Commenter Name</div>
-                                                    When you put money directly to a problem, it makes a good headline.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <h:form class="mb-4">
+                                        <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                                      rendered="#{not empty facesContext.messageList}">
+                                            <h:messages />
+                                        </h:panelGroup>
+
+                                        <h:outputLabel for="comentario" value="Unete a la discusión y deja un comentario:"/>
+                                        <h:inputTextarea row="3" value="#{foroBean.foroProyecto.comentario}"
+                                                         required="true" styleClass="form-control" id="comentario"/>
+
+                                        <h:inputText id="idUsuario" styleClass="form-control d-none"
+                                                     value="#{foroBean.foroProyecto.idUsuario}"
+                                                     requiredMessage="Ingresa ID de idUsuario">
+                                        </h:inputText>
+
+                                        <h:inputText id="idProyecto" styleClass="form-control d-none"
+                                                     value="#{foroBean.foroProyecto.idProyecto}"
+                                                     requiredMessage="Ingresa ID de idProyecto">
+                                        </h:inputText>
+
+                                        <h:commandButton value="Guardar" styleClass="btn btn-success mt-2"
+                                                         action="#{foroBean.saveForoProyectoDesdeProyecto()}" style="margin-right:10px"/>
+                                    </h:form>
+
                                     <!-- Single comment-->
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                                    <ui:repeat value="#{foroBean.getListaForoProyecto(request.getParameter('id'))}"
+                                               rendered="#{foroBean.getListaForoProyecto(request.getParameter('id')).size()>0}"
+                                               var="item"  varStatus="estado">
+                                        <div class="d-flex mb-4">
+                                            <div class="flex-shrink-0">
+                                                <img class="rounded-circle" src="https://www.laresonline.pt/www/assets/default/images/defaults/THUMBS-50x50-RESIZE/user.jpg" alt="..." />
+                                            </div>
+                                                <div class="ml-4">
+                                                    <div class="fw-bold">
+                                                        <h:outputText value="#{item.usuariosByIdUsuario.nombre}"/>&#xA0;
+                                                        <h:outputText value="#{item.usuariosByIdUsuario.apellido}"/>
+                                                    </div>
+                                                    <h:outputText value="#{item.comentario}"/>
+                                                </div>
                                         </div>
-                                    </div>
+                                    </ui:repeat>
+
                                 </div>
                             </div>
                         </div>

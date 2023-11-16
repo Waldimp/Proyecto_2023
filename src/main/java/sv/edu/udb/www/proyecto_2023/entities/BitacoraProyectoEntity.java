@@ -2,6 +2,8 @@ package sv.edu.udb.www.proyecto_2023.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "bitacora_proyecto", schema = "proyecto_2023")
 @NamedQuery(name="bitacora_proyecto.findByIdProyecto",query = "SELECT e FROM BitacoraProyectoEntity e where e.idProyecto= :id")
@@ -21,6 +23,9 @@ public class BitacoraProyectoEntity {
     @Basic
     @Column(name = "descripcion_evento", nullable = false, length = 250)
     private String descripcionEvento;
+    @Basic
+    @Column(name = "fecha_bitacora", nullable = false)
+    private Date fechaBitacora;
     @Basic
     @Column(name = "id_proyecto", nullable = false, length = 20)
     private long idProyecto;
@@ -59,6 +64,9 @@ public class BitacoraProyectoEntity {
     public void setDescripcionEvento(String descripcionEvento) {
         this.descripcionEvento = descripcionEvento;
     }
+    public Date getFechaBitacora() { return fechaBitacora; }
+
+    public void setFechaBitacora(Date fechaBitacora) { this.fechaBitacora = fechaBitacora; }
 
     public long getIdProyecto() {
         return idProyecto;

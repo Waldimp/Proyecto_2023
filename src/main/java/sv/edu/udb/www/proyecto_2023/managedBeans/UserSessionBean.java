@@ -57,7 +57,7 @@ public class UserSessionBean implements Serializable {
         }else{
             this.loggedIn = true;
             JsfUtil.setFlashMessage("ok","Acceso correcto!");
-            return "registroProyectos?faces-redirect=true";
+            return "dashboard?faces-redirect=true";
         }
     }
 
@@ -65,7 +65,7 @@ public class UserSessionBean implements Serializable {
         if (loggedIn) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-            navigationHandler.handleNavigation(facesContext, null, "registroProyectos.xhtml?faces-redirect=true");
+            navigationHandler.handleNavigation(facesContext, null, "dashboard.xhtml?faces-redirect=true");
         }
     }
 

@@ -89,6 +89,10 @@ public class ProyectosBean {
         return "registroProyectos?faces-redirect=true";
     }
 
+    public String conteoProyectos(){
+        return "" + modelo.listaProyectos().size();
+    }
+
     public String fecha(java.util.Date _fecha){
         if (_fecha == null) {
             return "";

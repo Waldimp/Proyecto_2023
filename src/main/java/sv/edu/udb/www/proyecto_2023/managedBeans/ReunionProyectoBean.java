@@ -19,7 +19,6 @@ public class ReunionProyectoBean {
 
     ReunionProyectoModel modelo = new ReunionProyectoModel();
     ProyectosModel proyectosModel = new ProyectosModel();
-
     UsuariosModel usuariosModel = new UsuariosModel();
     private ReunionProyectoEntity reunionProyecto;
 
@@ -125,6 +124,10 @@ public class ReunionProyectoBean {
             reunionProyecto.setIdUsuario(idUser);
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String conteoReuniones(){
+        return "" + modelo.listaReuniones().size();
     }
 
     public String fecha(java.util.Date _fecha){

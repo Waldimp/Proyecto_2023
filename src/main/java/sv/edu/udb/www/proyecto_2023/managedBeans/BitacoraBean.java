@@ -9,6 +9,8 @@ import sv.edu.udb.www.proyecto_2023.model.BitacoraModel;
 import sv.edu.udb.www.proyecto_2023.model.GestionProyectoModel;
 import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @ManagedBean
@@ -112,5 +114,17 @@ public BitacoraBean(){
 
     public String reload(){
         return "registroBitacora?faces-redirect=true";
+    }
+
+    public String conteoBitacoras(){
+        return "" + modelo.listaBitacoras().size();
+    }
+
+    public String fecha(java.util.Date _fecha){
+        if (_fecha == null) {
+            return "";
+        }
+        SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return mdyFormat.format(_fecha);
     }
 }
