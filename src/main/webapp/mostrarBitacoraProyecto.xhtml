@@ -116,7 +116,7 @@
                                             <h:outputLabel value="Operaciones"/>
                                         </f:facet>
                                         <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                         action="#{bitacoraBean.eliminarBitacora()}"
+                                                         action="#{bitacoraBean.eliminarBitacora(true)}"
                                                          onclick="return confirmarEliminacion();">
                                             <f:param name="idBitacora" value="#{est.idBitacora}"/>
                                         </h:commandButton>

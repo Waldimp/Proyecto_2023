@@ -2,6 +2,7 @@ package sv.edu.udb.www.proyecto_2023.model;
 
 import java.util.List;
 import jakarta.persistence.*;
+import sv.edu.udb.www.proyecto_2023.entities.GestionProyectoEntity;
 import sv.edu.udb.www.proyecto_2023.entities.UsuariosEntity;
 import sv.edu.udb.www.proyecto_2023.util.JpaUtil;
 import sv.edu.udb.www.proyecto_2023.entities.ReunionProyectoEntity;
@@ -18,6 +19,21 @@ public class ReunionProyectoModel {
             em.close();
             return lista;
 
+        }catch (Exception e){
+            em.close();
+            return null;
+        }
+    }
+
+    public List<ReunionProyectoEntity> listaReunionesProyecto(long idProyecto){
+        EntityManager em = JpaUtil.getEntityManager();
+
+        try{
+            Query con = em.createNamedQuery("reunion_proyecto.findByIdProyecto");
+            con.setParameter("idProyecto", idProyecto);
+            List<ReunionProyectoEntity> lista = con.getResultList();
+            em.close();
+            return lista;
         }catch (Exception e){
             em.close();
             return null;

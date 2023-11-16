@@ -23,6 +23,23 @@ public class GestionProyectoModel {
         }
     }
 
+    public List<GestionProyectoEntity> listarGestionesProyecto(long idProyecto){
+        EntityManager em = JpaUtil.getEntityManager();
+
+        try{
+            Query con = em.createNamedQuery("gestion_proyecto.findByIdProyecto");
+            con.setParameter("id", idProyecto);
+            List<GestionProyectoEntity> lista = con.getResultList();
+            em.close();
+            return lista;
+
+
+        }catch (Exception e){
+            em.close();
+            return null;
+        }
+    }
+
     public GestionProyectoEntity obtenerGestion (long idGestion){
         EntityManager em = JpaUtil.getEntityManager();
 

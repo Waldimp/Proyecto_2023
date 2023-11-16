@@ -42,6 +42,10 @@ public class ReunionProyectoBean {
         return modelo.listaReuniones();
     }
 
+    public List<ReunionProyectoEntity> getListaReunionesProyecto(long idProyecto){
+        return modelo.listaReunionesProyecto(idProyecto);
+    }
+
 
     public String saveReunionProyecto(){
         if(modelo.obtenerReunionesProyecto(reunionProyecto.getIdReunion()) != null){ // Modificar
@@ -73,11 +77,25 @@ public class ReunionProyectoBean {
                 return "registroReunionProyectos?faces-redirect=true";
             }
         }
-
-
     }
 
-    public String eliminarReunionProyecto(){
+    public String saveReunionProyectoDesdeProyecto(){
+        ProyectosEntity proy = proyectosModel.obtenerProyectos(reunionProyecto.getIdProyecto());
+        reunionProyecto.setProyectosByIdProyecto(proy);
+
+        UsuariosEntity usu = usuariosModel.obtenerUsuario(reunionProyecto.getIdUsuario());
+        reunionProyecto.setUsuariosByIdUsuario(usu);
+
+        if (modelo.insertarReunionProyecto(reunionProyecto) !=1){
+            JsfUtil.setErrorMessage(null,"ya se registro esta Reunion");
+            return null;
+        }else{
+            JsfUtil.setFlashMessage("ok","Reunion registrada con exito!");
+            return "verProyecto.xhtml?faces-redirect=true&id="+reunionProyecto.getIdProyecto();
+        }
+    }
+
+    public String eliminarReunionProyecto(boolean fromProyecto){
         String idReunionProyecto = JsfUtil.getRequest().getParameter("idReunionProyecto");
 
         if (modelo.eliminarReunionProyecto(Long.parseLong(idReunionProyecto))>0){
@@ -85,7 +103,7 @@ public class ReunionProyectoBean {
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Reunion Proyecto");
         }
-        return "registroReunionProyectos?faces-redirect=true";
+        return fromProyecto ? "verProyecto.xhtml?faces-redirect=true&id="+reunionProyecto.getIdProyecto() : "registroReunionProyectos?faces-redirect=true";
     }
 
     public String cargarReunionProyecto(long id) {
@@ -98,6 +116,15 @@ public class ReunionProyectoBean {
 
     public String reload(){
         return "registroReunionProyectos?faces-redirect=true";
+    }
+
+    public String guardarIdProyecto(long id, long idUser) {
+        ProyectosEntity est = proyectosModel.obtenerProyectos(id);
+        if (est != null) {
+            reunionProyecto.setIdProyecto(id);
+            reunionProyecto.setIdUsuario(idUser);
+        }
+        return null; // No redireccionamos, permanecemos en la misma página
     }
 
     public String fecha(java.util.Date _fecha){

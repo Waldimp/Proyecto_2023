@@ -41,7 +41,10 @@ public class GestionProyectoBean {
 
     public List<GestionProyectoEntity> gestListaGestiones(){
         return modelo.listarGestiones();
+    }
 
+    public List<GestionProyectoEntity> getListaGestionesProyecto(long idProyecto){
+        return modelo.listarGestionesProyecto(idProyecto);
     }
 
     public String saveGestion (){
@@ -78,7 +81,25 @@ public class GestionProyectoBean {
 
     }
 
-    public String eliminarGestion(){
+    public String saveGestionDesdeProyecto (){
+
+        ProyectosEntity proy = proyectosModel.obtenerProyectos(gestiones.getIdProyecto());
+        gestiones.setProyectosByIdProyecto(proy);
+
+        RecursoGestionesEntity recurso = recursosGestionesModel.obtenerRecursoGestion(gestiones.getIdTipoRecurso());
+        gestiones.setRecursoGestionesByIdGestion(recurso);
+
+        if (modelo.insertarGestion(gestiones) !=1){
+            JsfUtil.setErrorMessage(null,"ya se registro esta Gestion");
+            return null;
+        }else{
+            JsfUtil.setFlashMessage("ok","Gestion registrada con exito!");
+            return "verProyecto.xhtml?faces-redirect=true&id="+gestiones.getIdProyecto();
+        }
+
+    }
+
+    public String eliminarGestion(boolean fromProyecto){
         String idGestion = JsfUtil.getRequest().getParameter("idGestion");
 
         if (modelo.eliminarGestion(Long.parseLong(idGestion))>0){
@@ -86,13 +107,21 @@ public class GestionProyectoBean {
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Gestion");
         }
-        return "registroGestionProyecto?faces-redirect=true";
+        return fromProyecto ? "verProyecto.xhtml?faces-redirect=true&id="+gestiones.getIdProyecto() : "registroGestionProyecto?faces-redirect=true";
     }
 
     public String cargarProyecto(long id) {
         GestionProyectoEntity est = modelo.obtenerGestion(id);
         if (est != null) {
             gestiones = est; // Cargar los datos del estudiante en el formulario
+        }
+        return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String guardarIdProyecto(long id) {
+        ProyectosEntity est = proyectosModel.obtenerProyectos(id);
+        if (est != null) {
+            gestiones.setIdProyecto(id);
         }
         return null; // No redireccionamos, permanecemos en la misma página
     }
