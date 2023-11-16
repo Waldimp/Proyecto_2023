@@ -1,0 +1,136 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <f:event listener="#{bitacoraBean.guardarIdProyecto(request.getParameter('id'))}" type="preRenderView" />
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <!-- Basic Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bitacoras relacionadas al proyecto</h6>
+                </div>
+                <div class="card-body">
+                    Completa los campos solicitados
+
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <h:form id="miFormulario">
+                                <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                              rendered="#{not empty facesContext.messageList}">
+                                    <h:messages />
+                                </h:panelGroup>
+                                <h:panelGrid columns="4" styleClass="table">
+                                    <h:outputLabel for="idBitacora" value="id Bitacora:"/>
+                                    <h:inputText id="idBitacora" styleClass="form-control"
+                                                 value="#{bitacoraBean.bitacora.idBitacora}"
+                                                 required="true"
+                                                 requiredMessage="Ingresa ID de Bitacora"
+                                    >
+                                    </h:inputText>
+                                    <h:outputLabel for="descripcionBitacora" value="Descripcion de la bitacora:"/>
+                                    <h:inputText id="descripcionBitacora" styleClass="form-control"
+                                                 value="#{bitacoraBean.bitacora.descripcionBitacora}"
+                                                 required="true"
+                                                 requiredMessage="Debes ingresar Descripcion"/>
+
+                                    <h:outputLabel for="tipoBitacora" value="Tipo Bitacora:"/>
+                                    <h:inputText id="tipoBitacora" styleClass="form-control"
+                                                 value="#{bitacoraBean.bitacora.tipoBitacora}"
+                                                 required="false">
+                                    </h:inputText>
+
+                                    <h:outputLabel for="descripcionEvento" value="Descripcion Evento:"/>
+                                    <h:inputText id="descripcionEvento" styleClass="form-control"
+                                                 value="#{bitacoraBean.bitacora.descripcionEvento}"
+                                                 required="false"
+                                                 requiredMessage="Debes ingresar descripcion Bitacora"/>
+
+                                    <h:outputLabel for="idProyecto" value="Proyecto :"/>
+                                    <h:selectOneMenu id="idProyecto" styleClass="form-control"
+                                                     required="true" requiredMessage="Debes ingresar codigo del Proyecto Asignar"
+                                                     value="#{bitacoraBean.bitacora.idProyecto}">
+                                        <f:selectItems  value="#{proyectosBean.listaProyectos}" rendered="#{proyectosBean.listaProyectos.size()>0}"
+                                                        var="option" itemValue="#{option.idProyecto}"  itemLabel="#{option.nombreProyecto}" />
+
+                                    </h:selectOneMenu>
+
+                                </h:panelGrid>
+                                <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                                 action="#{bitacoraBean.saveBitacoraDesdeProyecto()}" style="margin-right:10px"/>
+                                <h:commandButton  action="#{bitacoraBean.reload()}"  value="Limpiar" styleClass="btn btn-danger"/>
+                            </h:form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bitácoras agregadas</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h:form >
+                                <h:dataTable styleClass="table" value="#{bitacoraBean.getListaBitacorasProyecto(request.getParameter('id'))}"
+                                             var="est" rendered="#{bitacoraBean.getListaBitacorasProyecto(request.getParameter('id')).size()>0}">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="idBitacora"/>
+                                        </f:facet>
+                                        <h:outputText value="#{est.idBitacora}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="Descripcion Bitacora"/>
+                                        </f:facet>
+                                        <h:outputText value="#{est.descripcionBitacora}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="Tipo Bitacora"/>
+                                        </f:facet>
+                                        <h:outputText value="#{est.tipoBitacora}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="Descripcion Evento"/>
+                                        </f:facet>
+                                        <h:outputText value="#{est.descripcionEvento}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="Proyecto asignado"/>
+                                        </f:facet>
+                                        <h:outputText value="#{est.proyectosByIdProyecto.nombreProyecto}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="Operaciones"/>
+                                        </f:facet>
+                                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                                         action="#{bitacoraBean.eliminarBitacora()}"
+                                                         onclick="return confirmarEliminacion();">
+                                            <f:param name="idBitacora" value="#{est.idBitacora}"/>
+                                        </h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

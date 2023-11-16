@@ -38,6 +38,11 @@ public BitacoraBean(){
     return modelo.listaBitacoras();
    }
 
+    public List<BitacoraProyectoEntity> getListaBitacorasProyecto(long idProyecto){
+
+        return modelo.listaBitacorasProyecto(idProyecto);
+    }
+
     public String saveBitacora(){
         if(modelo.obtenerProyectos(bitacora.getIdBitacora()) != null){
             ProyectosEntity proy = proyectosModel.obtenerProyectos(bitacora.getIdProyecto());
@@ -61,6 +66,29 @@ public BitacoraBean(){
             }
         }
 
+    }
+
+    public String saveBitacoraDesdeProyecto(){
+
+        ProyectosEntity proy = proyectosModel.obtenerProyectos(bitacora.getIdProyecto());
+        bitacora.setProyectosByIdProyecto(proy);
+
+        if (modelo.insertarBitacora(bitacora) !=1){
+            JsfUtil.setErrorMessage(null,"ya se registro esta bitacora");
+            return null;
+        }else{
+            JsfUtil.setFlashMessage("ok","Bitacora registrado con exito!");
+            return "verProyecto.xhtml?faces-redirect=true&id="+bitacora.getIdProyecto();
+        }
+    }
+
+    public String guardarIdProyecto(long id) {
+        ProyectosEntity est = proyectosModel.obtenerProyectos(id);
+        if (est != null) {
+            bitacora.setIdProyecto(id);
+
+        }
+        return null; // No redireccionamos, permanecemos en la misma página
     }
 
     public String eliminarBitacora(){

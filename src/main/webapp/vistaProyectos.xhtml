@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Registro de Proyectos</title>
+    <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
+
+    <h:outputStylesheet  name="css/alertify.core.css" />
+    <h:outputStylesheet  name="css/alertify.default.css" />
+    <h:outputScript  name="js/alertify.js"/>
+
+    <h:outputStylesheet name="vendor/fontawesome-free/css/all.min.css" />
+    <h:outputStylesheet name="css/sb-admin-2.min.css" />
+</h:head>
+<h:body>
+
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="sidebar.xhtml" />
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <ui:include src="topBar.xhtml" />
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="py-5">
+                        <div class="container px-5">
+                            <h2 class="fw-bolder fs-5 mb-4">Estos son tus proyectos...</h2>
+                            <div class="row gx-5">
+
+                                <ui:repeat value="#{proyectosBean.listaProyectos}" rendered="#{proyectosBean.listaProyectos.size()>0}"
+                                           var="item"  varStatus="estado">
+
+                                    <div class="col-lg-4 mb-5">
+                                        <div class="card h-100 shadow border-0">
+                                            <img class="card-img-top" src="https://picsum.photos/600/350?image=#{estado.index}" alt="..." />
+                                            <div class="card-body p-4">
+                                                <div class="h5 card-title mb-3">
+                                                    <a href="verProyecto.xhtml?id=#{item.idProyecto}">
+                                                        <span>
+                                                            <h:outputText value="#{item.nombreProyecto}"/>
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                                <a class="badge bg-secondary text-decoration-none link-light" href="#!">
+                                                    <h:outputText value="#{item.tipoProyectoByIdTipoProyecto.nombreTipo}"/>
+                                                </a>
+
+                                                <p class="card-text mb-0">
+                                                    <h:outputText value="#{item.descripcion}"/>
+                                                </p>
+                                            </div>
+                                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                                <div class="d-flex align-items-end justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="small">
+                                                            <div class="text-muted"><h:outputText rendered="#{item.fechaInicio != null}" value="#{proyectosBean.fecha(item.fechaInicio)}"/> &middot; <h:outputText rendered="#{item.fechaFin != null}" value="#{proyectosBean.fecha(item.fechaFin)}"/></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </ui:repeat>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <h:outputScript name="vendor/jquery/jquery.min.js"/>
+    <h:outputScript name="vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+    <h:outputScript name="vendor/jquery-easing/jquery.easing.min.js"/>
+    <h:outputScript name="js/sb-admin-2.min.js"/>
+
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
+
+
+    <h:outputScript>
+        <c:if test = "#{not empty flash.exito}" >
+            alertify.success('#{flash.exito}');
+        </c:if>
+        function confirmarEliminacion(){
+        return confirm("Está seguro que desea eliminar este Registro");
+        }
+
+        $(document).ready(function() {
+        $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+
+    </h:outputScript>
+</h:body>
+</html>

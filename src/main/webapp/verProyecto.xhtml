@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Registro de Proyectos</title>
+    <!--    <h:outputStylesheet   name="css/bootstrap.min.css" />-->
+
+    <h:outputStylesheet  name="css/alertify.core.css" />
+    <h:outputStylesheet  name="css/alertify.default.css" />
+    <h:outputScript  name="js/alertify.js"/>
+
+    <h:outputStylesheet name="vendor/fontawesome-free/css/all.min.css" />
+    <h:outputStylesheet name="css/sb-admin-2.min.css" />
+</h:head>
+<h:body>
+
+    <f:event listener="#{userSessionBean.checkYaLogueado}" type="preRenderView" />
+
+    <f:event listener="#{proyectosBean.cargarProyecto(request.getParameter('id'))}" type="preRenderView" />
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="sidebar.xhtml" />
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <ui:include src="topBar.xhtml" />
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="bg-dark py-1">
+                        <div class="container px-5">
+                            <div class="row gx-5 align-items-center justify-content-center">
+                                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                                    <div class="my-5 text-center text-xl-start">
+                                        ID: <h:outputText value="#{request.getParameter('id')}" />
+
+                                        <h1 class="display-5 fw-bolder text-white mb-2">
+                                            <h:outputText value="#{proyectosBean.proyecto.nombreProyecto}"/>
+                                        </h1>
+                                        <h:outputText value="#{proyectosBean.proyecto.tipoProyectoByIdTipoProyecto.nombreTipo}"/>
+                                        <p class="lead fw-normal text-white-50 mb-4">
+                                            <h:outputText value="#{proyectosBean.proyecto.descripcion}"/>
+                                        </p>
+                                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                                <div class="d-flex align-items-end justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="small">
+                                                            <div class="text-muted"><h:outputText rendered="#{proyectosBean.proyecto.fechaInicio != null}" value="#{proyectosBean.fecha(proyectosBean.proyecto.fechaInicio)}"/> &middot; <h:outputText rendered="#{proyectosBean.proyecto.fechaFin != null}" value="#{proyectosBean.fecha(proyectosBean.proyecto.fechaFin)}"/></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://www.teamly.com/blog/wp-content/uploads/2022/05/Design-Thinking-in-Project-Management.png" alt="..." /></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+                            <h1 class="h3 mb-0 text-gray-800">Datos del proyecto</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="foro-tab" data-bs-toggle="tab" data-bs-target="#foro"
+                                                type="button" role="tab" aria-controls="home" aria-selected="true">Foro</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora"
+                                                type="button" role="tab" aria-controls="profile" aria-selected="false">Bitacora</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="gestiones-tab" data-bs-toggle="tab" data-bs-target="#gestiones"
+                                                type="button" role="tab" aria-controls="contact" aria-selected="false">Gestiones</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="reuniones-tab" data-bs-toggle="tab" data-bs-target="#reuniones"
+                                                type="button" role="tab" aria-controls="contact" aria-selected="false">Reuniones</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="foro" role="tabpanel" aria-labelledby="foro-tab">
+                                        <ui:include src="foroProyecto.xhtml" />
+                                    </div>
+                                    <div class="tab-pane fade" id="bitacora" role="tabpanel" aria-labelledby="bitacora-tab">
+                                        <ui:include src="mostrarBitacoraProyecto.xhtml" />
+                                    </div>
+                                    <div class="tab-pane fade" id="gestiones" role="tabpanel" aria-labelledby="gestiones-tab">
+                                        Mostrar gestiones
+                                    </div>
+                                    <div class="tab-pane fade" id="reuniones" role="tabpanel" aria-labelledby="reuniones-tab">
+                                        Mostrar reuniones
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <h:outputScript name="vendor/jquery/jquery.min.js"/>
+    <h:outputScript name="vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+    <h:outputScript name="vendor/jquery-easing/jquery.easing.min.js"/>
+    <h:outputScript name="js/sb-admin-2.min.js"/>
+
+    <h:outputScript  name="js/bootstrap.bundle.min.js"/>
+    <h:outputScript  name="js/jquery-3.7.1.min.js"/>
+    <h:outputStylesheet  name="css/jquery-ui.css"/>
+    <h:outputScript  name="js/jquery-ui.min.js"/>
+
+
+    <h:outputScript>
+        <c:if test = "#{not empty flash.exito}" >
+            alertify.success('#{flash.exito}');
+        </c:if>
+        function confirmarEliminacion(){
+        return confirm("Está seguro que desea eliminar este Registro");
+        }
+
+        $(document).ready(function() {
+        $('.fechaProy').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+
+    </h:outputScript>
+</h:body>
+</html>

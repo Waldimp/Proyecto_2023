@@ -97,6 +97,15 @@
             </li>
         </c:if>
 
+        <c:if test = "#{userSessionBean.usuarioSesion.rolUsuarioByIdRol.rolUsuario != 'Admin' }" >
+            <li class="nav-item">
+                <a class="nav-link" href="vistaProyectos.xhtml">
+                    <i class="fas fa-fw fa-eye"/>
+                    <span>Vista de Proyectos</span></a>
+            </li>
+
+        </c:if>
+
         <!-- Divider -->
         <li>
             <hr class="sidebar-divider d-none d-md-block" />

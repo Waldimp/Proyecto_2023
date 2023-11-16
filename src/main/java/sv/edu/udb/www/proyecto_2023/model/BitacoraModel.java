@@ -25,6 +25,24 @@ public class BitacoraModel {
         }
     }
 
+    public List<BitacoraProyectoEntity> listaBitacorasProyecto(long idProyecto){
+
+        EntityManager em = JpaUtil.getEntityManager();
+
+        try{
+            Query con = em.createNamedQuery("bitacora_proyecto.findByIdProyecto");
+            con.setParameter("id", idProyecto);
+            List<BitacoraProyectoEntity> lista = con.getResultList();
+            em.close();
+            return lista;
+
+
+        }catch (Exception e){
+            em.close();
+            return null;
+        }
+    }
+
     public BitacoraProyectoEntity obtenerProyectos (long idBitacora){
         EntityManager em = JpaUtil.getEntityManager();
 
