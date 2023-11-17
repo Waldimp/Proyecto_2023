@@ -99,7 +99,7 @@ public class GestionProyectoBean {
 
     }
 
-    public String eliminarGestion(boolean fromProyecto){
+    public String eliminarGestion(){
         String idGestion = JsfUtil.getRequest().getParameter("idGestion");
 
         if (modelo.eliminarGestion(Long.parseLong(idGestion))>0){
@@ -107,7 +107,7 @@ public class GestionProyectoBean {
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Gestion");
         }
-        return fromProyecto ? "verProyecto.xhtml?faces-redirect=true&id="+gestiones.getIdProyecto() : "registroGestionProyecto?faces-redirect=true";
+        return "registroGestionProyecto?faces-redirect=true";
     }
 
     public String cargarProyecto(long id) {
@@ -124,6 +124,17 @@ public class GestionProyectoBean {
             gestiones.setIdProyecto(id);
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String eliminarGestionProyectoUrl(long idGestionP) {
+        if(idGestionP != 0){
+            if (modelo.eliminarGestion(idGestionP)>0){
+                JsfUtil.setFlashMessage("ok","Gestion Proyecto eliminado correctamente");
+            }else{
+                JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Gestion Proyecto");
+            }
+        }
+        return null;
     }
 
     public String reload(){

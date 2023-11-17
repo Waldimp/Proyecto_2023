@@ -94,7 +94,7 @@ public class ReunionProyectoBean {
         }
     }
 
-    public String eliminarReunionProyecto(boolean fromProyecto){
+    public String eliminarReunionProyecto(){
         String idReunionProyecto = JsfUtil.getRequest().getParameter("idReunionProyecto");
 
         if (modelo.eliminarReunionProyecto(Long.parseLong(idReunionProyecto))>0){
@@ -102,7 +102,7 @@ public class ReunionProyectoBean {
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Reunion Proyecto");
         }
-        return fromProyecto ? "verProyecto.xhtml?faces-redirect=true&id="+reunionProyecto.getIdProyecto() : "registroReunionProyectos?faces-redirect=true";
+        return "registroReunionProyectos?faces-redirect=true";
     }
 
     public String cargarReunionProyecto(long id) {
@@ -124,6 +124,17 @@ public class ReunionProyectoBean {
             reunionProyecto.setIdUsuario(idUser);
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String eliminarReunionProyectoUrl(long idReunion) {
+        if(idReunion != 0){
+            if (modelo.eliminarReunionProyecto(idReunion)>0){
+                JsfUtil.setFlashMessage("ok","Reunion Proyecto eliminado correctamente");
+            }else{
+                JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Reunion Proyecto");
+            }
+        }
+        return null;
     }
 
     public String conteoReuniones(){

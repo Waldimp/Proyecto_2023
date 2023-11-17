@@ -5,6 +5,8 @@
 
     <f:event listener="#{reunionProyectoBean.guardarIdProyecto(request.getParameter('id'), userSessionBean.usuarioSesion.idUsuario)}" type="preRenderView" />
 
+    <f:event listener="#{reunionProyectoBean.eliminarReunionProyectoUrl(request.getParameter('eliminarReunion'))}" type="preRenderView" />
+
     <div class="row">
 
         <div class="col-lg-12">
@@ -127,11 +129,10 @@
                                         <f:facet name="header">
                                             <h:outputLabel value="Operaciones"/>
                                         </f:facet>
-                                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                         action="#{reunionProyectoBean.eliminarReunionProyecto(true)}"
-                                                         onclick="return confirmarEliminacion();">
-                                            <f:param name="idReunionProyecto" value="#{est.idReunion}"/>
-                                        </h:commandButton>
+
+                                        <a href="verProyecto.xhtml?id=#{est.idProyecto}&amp;eliminarReunion=#{est.idReunion}" class="btn btn-danger">
+                                            Eliminar
+                                        </a>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>

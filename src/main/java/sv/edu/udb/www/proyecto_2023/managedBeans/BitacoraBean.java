@@ -93,7 +93,7 @@ public BitacoraBean(){
         return null; // No redireccionamos, permanecemos en la misma página
     }
 
-    public String eliminarBitacora(boolean fromProyecto){
+    public String eliminarBitacora(){
         String idBitacora = JsfUtil.getRequest().getParameter("idBitacora");
 
         if (modelo.eliminarBitacora(Long.parseLong(idBitacora))>0){
@@ -101,7 +101,7 @@ public BitacoraBean(){
         }else{
             JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Bitacora");
         }
-        return fromProyecto ? "verProyecto.xhtml?faces-redirect=true&id="+bitacora.getIdProyecto() : "registroBitacora?faces-redirect=true";
+        return "registroBitacora?faces-redirect=true";
     }
 
     public String cargarProyecto(long id) {
@@ -110,6 +110,17 @@ public BitacoraBean(){
             bitacora = est; // Cargar los datos del estudiante en el formulario
         }
         return null; // No redireccionamos, permanecemos en la misma página
+    }
+
+    public String eliminarBitacoraProyectoUrl(long idBitacora) {
+        if(idBitacora != 0){
+            if (modelo.eliminarBitacora(idBitacora)>0){
+                JsfUtil.setFlashMessage("ok","Bitacora eliminado correctamente");
+            }else{
+                JsfUtil.setErrorMessage(null,"No se pudo eliminar esta Bitacora");
+            }
+        }
+        return null;
     }
 
     public String reload(){

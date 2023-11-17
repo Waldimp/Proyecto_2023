@@ -5,6 +5,8 @@
 
     <f:event listener="#{bitacoraBean.guardarIdProyecto(request.getParameter('id'))}" type="preRenderView" />
 
+    <f:event listener="#{bitacoraBean.eliminarBitacoraProyectoUrl(request.getParameter('eliminarBitacora'))}" type="preRenderView" />
+
     <div class="row">
 
         <div class="col-lg-12">
@@ -129,11 +131,9 @@
                                         <f:facet name="header">
                                             <h:outputLabel value="Operaciones"/>
                                         </f:facet>
-                                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                         action="#{bitacoraBean.eliminarBitacora(true)}"
-                                                         onclick="return confirmarEliminacion();">
-                                            <f:param name="idBitacora" value="#{est.idBitacora}"/>
-                                        </h:commandButton>
+                                        <a href="verProyecto.xhtml?id=#{est.idProyecto}&amp;eliminarBitacora=#{est.idBitacora}" class="btn btn-danger">
+                                            Eliminar
+                                        </a>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>

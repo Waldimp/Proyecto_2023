@@ -162,7 +162,7 @@
                                                             <h:outputLabel value="Operaciones"/>
                                                         </f:facet>
                                                         <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                                         action="#{gestionProyectoBean.eliminarGestion(false)}"
+                                                                         action="#{gestionProyectoBean.eliminarGestion()}"
                                                                          onclick="return confirmarEliminacion();">
                                                             <f:param name="idGestion" value="#{est.idGestion}"/>
                                                         </h:commandButton>
