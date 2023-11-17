@@ -23,7 +23,7 @@ public class RolUsuariosModel {
         }
     }
 
-    public RolUsuarioEntity obtenerRoles (String idRol){
+    public RolUsuarioEntity obtenerRoles (long idRol){
 
         EntityManager em = JpaUtil.getEntityManager();
         try{

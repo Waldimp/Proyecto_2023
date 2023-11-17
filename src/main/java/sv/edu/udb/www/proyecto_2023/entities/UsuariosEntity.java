@@ -48,7 +48,7 @@ public class UsuariosEntity {
     private String password;
     @Basic
     @Column(name = "id_rol", nullable = false, length = 20)
-    private String idRol;
+    private long idRol;
     @OneToMany(mappedBy = "usuariosByIdUsuario")
     private Collection<ReunionProyectoEntity> reunionProyectosByIdUsuario;
     @OneToMany(mappedBy = "usuariosByIdUsuario")
@@ -129,11 +129,11 @@ public class UsuariosEntity {
         this.password = password;
     }
 
-    public String getIdRol() {
+    public long getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(String idRol) {
+    public void setIdRol(long idRol) {
         this.idRol = idRol;
     }
 
