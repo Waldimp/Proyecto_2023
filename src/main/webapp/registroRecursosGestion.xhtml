@@ -83,6 +83,16 @@
                                                                  required="false"
                                                                  requiredMessage="Debes ingresar descripcion"/>
 
+                                                    <h:outputLabel for="idTipoProyecto" value="Tipo de Recurso:"/>
+
+                                                    <h:selectOneMenu id="idTipoProyecto" styleClass="form-control"
+                                                                     required="true" requiredMessage="Debes asignar un tipo de recurso:"
+                                                                     value="#{recursoGestionesBean.recursos.idTipoProyecto}">
+                                                        <f:selectItems  value="#{tipoProyectoBean.listaTipoProyectos}" rendered="#{tipoProyectoBean.listaTipoProyectos.size()>0}"
+                                                                        var="option" itemValue="#{option.idTipoProyecto}"  itemLabel="#{option.nombreTipo}" />
+
+                                                    </h:selectOneMenu>
+
                                                 </h:panelGrid>
                                                 <h:commandButton value="Guardar" styleClass="btn btn-success"
                                                                  action="#{recursoGestionesBean.saveRecursoGestion()}" style="margin-right:10px"/>
@@ -123,6 +133,12 @@
                                                             <h:outputLabel value="Descripcion"/>
                                                         </f:facet>
                                                         <h:outputText value="#{est.descripcion}"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">
+                                                            <h:outputLabel value="Tipo de Recurso"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{est.tipoProyectoByIdTipoProyecto.nombreTipo}"/>
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">

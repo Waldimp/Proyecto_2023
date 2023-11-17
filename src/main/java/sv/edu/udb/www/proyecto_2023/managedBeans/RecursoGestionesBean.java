@@ -2,6 +2,9 @@ package sv.edu.udb.www.proyecto_2023.managedBeans;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import sv.edu.udb.www.proyecto_2023.entities.ProyectosEntity;
+import sv.edu.udb.www.proyecto_2023.entities.TipoProyectoEntity;
+import sv.edu.udb.www.proyecto_2023.model.ProyectosModel;
+import sv.edu.udb.www.proyecto_2023.model.TipoProyectoModel;
 import sv.edu.udb.www.proyecto_2023.util.JsfUtil;
 import sv.edu.udb.www.proyecto_2023.entities.RecursoGestionesEntity;
 import sv.edu.udb.www.proyecto_2023.model.RecursosGestionesModel;
@@ -11,7 +14,8 @@ import java.util.List;
 public class RecursoGestionesBean {
 
     RecursosGestionesModel modelo = new RecursosGestionesModel();
-
+    TipoProyectoModel modeloTipo = new TipoProyectoModel();
+    ProyectosModel proyectosModel = new ProyectosModel();
     private RecursoGestionesEntity recursos;
 
     private List<RecursoGestionesEntity> listaRecursos;
@@ -32,8 +36,15 @@ public class RecursoGestionesBean {
         return modelo.listarRecursosGestiones();
     }
 
+    public List<RecursoGestionesEntity> getListaRecursosParaProyecto(long idProyecto){
+        ProyectosEntity proy = proyectosModel.obtenerProyectos(idProyecto);
+        return modelo.listarRecursosGestionesParaProyecto(proy.getIdTipoProyecto());
+    }
+
     public String saveRecursoGestion(){
         if(modelo.obtenerRecursoGestion(recursos.getIdRecurso()) != null){ // Modificar
+            TipoProyectoEntity tipo = modeloTipo.obtenerTipoProyecto(recursos.getIdTipoProyecto());
+            recursos.setTipoProyectoByIdTipoProyecto(tipo);
             if (modelo.modificarRecurso(recursos) !=1){
                 JsfUtil.setErrorMessage(null,"Error al modificar el Recurso");
                 return null;
@@ -42,6 +53,8 @@ public class RecursoGestionesBean {
                 return "registroRecursosGestion?faces-redirect=true";
             }
         } else {
+            TipoProyectoEntity tipo = modeloTipo.obtenerTipoProyecto(recursos.getIdTipoProyecto());
+            recursos.setTipoProyectoByIdTipoProyecto(tipo);
             if (modelo.insertarRecurso(recursos) != 1) {
                 JsfUtil.setErrorMessage(null, "ya se registro este Recurso");
                 return null;

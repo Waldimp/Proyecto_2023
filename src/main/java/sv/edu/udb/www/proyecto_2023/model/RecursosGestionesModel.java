@@ -24,6 +24,26 @@ public class RecursosGestionesModel {
         }
     }
 
+
+    public List<RecursoGestionesEntity> listarRecursosGestionesParaProyecto(long idTipoProyecto){
+
+        EntityManager em = JpaUtil.getEntityManager();
+
+        try{
+            Query con = em.createNamedQuery("recurso_gestiones.findByTipoProyecto");
+            con.setParameter("idTipoProyecto", idTipoProyecto);
+            List<RecursoGestionesEntity> lista = con.getResultList();
+            em.close();
+            return lista;
+
+
+        }catch (Exception e){
+            em.close();
+            return null;
+        }
+    }
+
+
     public RecursoGestionesEntity obtenerRecursoGestion (long idRecurso){
         EntityManager em = JpaUtil.getEntityManager();
 

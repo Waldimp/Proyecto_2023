@@ -64,7 +64,8 @@
                                     <h:selectOneMenu id="idTipoRecurso" styleClass="form-control"
                                                      required="true" requiredMessage="Debes ingresar el Tipo de recurso de proyecto"
                                                      value="#{gestionProyectoBean.gestiones.idTipoRecurso}">
-                                        <f:selectItems  value="#{recursoGestionesBean.listaRecursos}" rendered="#{recursoGestionesBean.listaRecursos.size()>0}"
+                                        <f:selectItems  value="#{recursoGestionesBean.getListaRecursosParaProyecto(gestionProyectoBean.gestiones.idProyecto)}"
+                                                        rendered="#{recursoGestionesBean.getListaRecursosParaProyecto(gestionProyectoBean.gestiones.idProyecto).size()>0}"
                                                         var="option" itemValue="#{option.idRecurso}"  itemLabel="#{option.nombreRecurso}" />
                                     </h:selectOneMenu>
                                 </h:panelGrid>
